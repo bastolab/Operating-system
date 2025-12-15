@@ -1,7 +1,7 @@
 
 # Week 2 — Security Planning & Testing Methodology
 
-**[Home](../README.md)** | **[Week 1](week1-system-planning.md)** | **[Week 3 →](week3-application-selection.md)**
+**[Home](../README.md)** | **[Week 1](week1.md)** | **[Week 3 →](week3.md)**
 
 ---
 
@@ -284,7 +284,7 @@ This planning phase ensured security and performance considerations were address
 
 ---
 
-**[← Week 1](week1-system-planning.md)** | **[Week 3 →](week3-application-selection.md)**
+**[← Week 1](week1.md)** | **[Week 3 →](week3.md)**
 
 
 Just tell me 👍
