@@ -1,174 +1,256 @@
-# Week 1 — System Planning & Distribution Selection
+
+
+# Week 1 — System Architecture & Environment Planning
+
+**[Home](../README.md)** | **Week 1** | **[Week 2 →](week2-security-planning.md)**
+
+---
+
+## Overview
+
+Week 1 focuses on planning the system architecture and deployment environment for a Linux server before installation. This includes defining the host setup, virtualization strategy, network topology, and directory structure. The objective is to establish a clear, reproducible foundation that supports security, performance monitoring, and future scalability.
+
+---
 
 ## Objectives
-* Design VirtualBox-based lab with defined network topology, IP addressing, and SSH access paths
-* Compare server distributions and justify selection based on project requirements
-* Document baseline system specifications using CLI commands only
-* Create architecture diagram illustrating network design and system connections
+
+* Design the overall system architecture
+* Select host OS and virtualization platform
+* Define network configuration and addressing
+* Plan directory structure and repository organization
+* Prepare environment for secure remote management
 
 ---
 
-## System Architecture
+## Deliverables
 
-![Figure 1.1: VirtualBox lab system architecture](images/week1/week1-system-architecture.png)
-
-*Figure 1.1: Ubuntu Server isolated on Host-Only network; Ubuntu Workstation connected via NAT and Host-Only adapters for controlled internet access and internal communication.*
-
-**Architecture Components:**
-- **Ubuntu Server:** Host-Only network (isolated from internet)
-- **Ubuntu Workstation:** Dual adapters (NAT + Host-Only)
-- **Private Network:** `192.168.56.0/24` for secure SSH access
-- **Internet Gateway:** Workstation only
+* System architecture diagram
+* Virtualization and network design
+* Planned directory and repository structure
+* Evidence of host and VM environment setup
 
 ---
 
-## Distribution Selection
+## 1. System Architecture Design
 
-### Ubuntu Server 22.04 LTS — Selected
+### 1.1 High-Level Architecture
 
-**Justification:**
-- **Long-Term Support:** 5-year update cycle ensures stability
-- **Extensive Documentation:** Beginner-friendly with robust community resources
-- **Package Availability:** Large repositories simplify software installation
-- **VirtualBox Compatibility:** Excellent guest additions support
-- **Learning Value:** Industry-relevant skills and widespread adoption
+**Architecture Description**
 
-**Trade-offs:**
-- Slightly higher resource usage than minimal distributions
-- Some enterprise features require Ubuntu Pro subscription
+* Host machine runs macOS
+* Virtualization provided via VirtualBox
+* Ubuntu Server runs as a guest VM
+* Management performed remotely via SSH
+* Isolated host-only network for secure access
 
-### Alternatives Considered
+📸 **Screenshot / Diagram to include**
+**Filename:** `week1-system-architecture.png`
+**Shows:** Host → VirtualBox → Ubuntu Server → SSH management
 
-| Distribution | Pros | Cons | Decision |
-|-------------|------|------|----------|
-| **Debian 12** | Stable, lightweight, secure | Older packages, manual configuration | Not selected: steeper learning curve |
-| **Rocky Linux 9** | RHEL-compatible, enterprise-grade | Limited beginner resources, complex setup | Not selected: overkill for lab environment |
-
-**Conclusion:** Ubuntu Server balances ease of use, support, and real-world applicability for this project.
-
----
-
-## Workstation Configuration
-
-### Ubuntu Desktop 24.04 LTS — Selected Approach
-
-**Role:**
-- Administrative control node
-- SSH client for server management
-- Internet access gateway for updates
-- Testing and monitoring platform
-
-**Network Design:**
-- **Adapter 1 (NAT):** Outbound internet access for package updates
-- **Adapter 2 (Host-Only):** Internal communication with server
-
-**SSH Configuration:**
-- Key type: `ed25519`
-- Storage path: `~/.ssh/id_ed25519`
-- Authentication: Public key only (password disabled)
-
----
-
-## Network Configuration
-
-### IP Addressing Plan
-
-| System | Adapter | Mode | IP Address | Gateway | Internet |
-|--------|---------|------|------------|---------|----------|
-| **Ubuntu Server** | vboxnet0 | Host-Only | `192.168.56.103/24` | None | No |
-| **Ubuntu Workstation** | Adapter 1 | NAT | DHCP | Auto | Yes |
-| **Ubuntu Workstation** | Adapter 2 | Host-Only | `192.168.56.102/24` | `192.168.56.1` | No |
-
-### VirtualBox Network Settings
-- **Host-Only Network:** `vboxnet0` (`192.168.56.0/24`)
-- **DHCP:** Disabled (static IPs assigned)
-- **Security:** Server isolated; workstation bridges internal/external networks
-
-### Network Verification
-
-```bash
-# View network interfaces
-ip addr show
-
-# Check routing table
-ip route show
-
-# Test connectivity
-ping -c 4 192.168.56.103  # From workstation to server
+```md
+![System Architecture Diagram](../assets/screenshots/week1/week1-system-architecture.png)
+**Figure W1-1:** High-level system architecture showing host, virtual machine, and management access.
 ```
 
 ---
 
-## System Baseline Documentation
+### 1.2 Host Environment
 
-### CLI Evidence Collection
+**Host System**
 
-**System Information:**
-```bash
-uname -a           # Kernel version and architecture
-lsb_release -a     # Distribution details
-```
+* Operating System: macOS
+* Role: Development workstation and management console
+* Responsibilities:
 
-**Resource Utilization:**
-```bash
-free -h            # Memory usage
-df -h              # Disk space
-```
+  * SSH access
+  * Monitoring execution
+  * Evidence collection
+  * GitHub repository management
 
-**Network Configuration:**
-```bash
-ip addr show       # Network interfaces and IPs
-ip route show      # Routing table
-```
-
-### System Specifications
-
-![Figure 1.2: System specifications output](images/week1/week1-specs.png)
-
-*Figure 1.2: Baseline CLI output showing kernel version, memory allocation, disk usage, and network configuration.*
-
-**Key Metrics:**
-- **OS:** Ubuntu Server 22.04.3 LTS / Ubuntu Desktop 24.04 LTS
-- **Kernel:** Linux 5.15.0+ (Server) / 6.8.0+ (Workstation)
-- **Memory:** 2GB (Server) / 4GB (Workstation)
-- **Disk:** 20GB allocated per VM
+📸 **Screenshot to capture**
+**Filename:** `week1-host-info.png`
+**Figure W1-2:** Host system information confirming development environment.
 
 ---
 
-## Deliverables Summary
+## 2. Virtualization Platform
 
-✅ **Architecture Diagram:** Complete network topology with security boundaries  
-✅ **Distribution Comparison:** Ubuntu Server vs Debian vs Rocky Linux  
-✅ **Workstation Rationale:** Dual-adapter design for isolation and internet access  
-✅ **Network Plan:** Host-Only (`192.168.56.0/24`) with static IP assignments  
-✅ **CLI Baseline:** System specifications captured via terminal commands  
+### 2.1 VirtualBox Configuration
+
+**Virtualization Tool:** VirtualBox
+**Guest OS:** Ubuntu Server LTS
+
+**Planned VM Resources**
+
+* CPU: 2 vCPUs
+* Memory: 2–4 GB RAM
+* Storage: 20–40 GB (VDI)
+
+📸 **Screenshot to capture**
+**Filename:** `week1-virtualbox-vm-settings.png`
+**Figure W1-3:** VirtualBox VM configuration showing allocated CPU, memory, and storage.
+
+---
+
+### 2.2 Guest Operating System
+
+**OS Selection Rationale**
+
+* Ubuntu Server LTS
+* Long-term support and stability
+* Strong documentation and community
+* Native AppArmor integration
+
+📸 **Screenshot to capture**
+**Filename:** `week1-ubuntu-server-installed.png`
+**Figure W1-4:** Ubuntu Server successfully installed and booted.
+
+---
+
+## 3. Network Design
+
+### 3.1 Network Topology
+
+**Network Mode:** Host-only Adapter
+
+**Design Rationale**
+
+* Isolated from public networks
+* Secure management access
+* Predictable IP addressing
+* Suitable for testing and demonstrations
+
+📸 **Screenshot to capture**
+**Filename:** `week1-network-topology.png`
+**Figure W1-5:** Host-only network configuration in VirtualBox.
+
+---
+
+### 3.2 IP Addressing Plan
+
+| Component     | IP Address     |
+| ------------- | -------------- |
+| Host (macOS)  | 192.168.56.1   |
+| Ubuntu Server | 192.168.56.103 |
+
+📸 **Screenshot to capture**
+**Filename:** `week1-ip-config.png`
+**Figure W1-6:** IP configuration verification on Ubuntu Server.
+
+---
+
+## 4. Directory & Repository Structure
+
+### 4.1 Planned Server Directory Structure
+
+```text
+/opt/project/
+├── scripts/
+├── data/
+├── logs/
+└── backups/
+```
+
+**Purpose**
+
+* `scripts/`: Monitoring and automation scripts
+* `data/`: CSV outputs and performance metrics
+* `logs/`: System and application logs
+* `backups/`: Configuration backups
+
+📸 **Screenshot to capture**
+**Filename:** `week1-server-directories.png`
+**Figure W1-7:** Planned directory structure on the server.
+
+---
+
+### 4.2 GitHub Repository Structure
+
+```text
+repo-root/
+├── README.md
+├── docs/
+│   ├── week1-system-planning.md
+│   ├── week2-security-planning.md
+│   └── week3-application-selection.md
+├── assets/
+│   └── screenshots/
+│       ├── week1/
+│       └── week2/
+└── scripts/
+```
+
+📸 **Screenshot to capture**
+**Filename:** `week1-repo-structure.png`
+**Figure W1-8:** GitHub repository structure prepared for documentation and evidence.
+
+---
+
+## 5. Remote Management Plan
+
+### SSH Access Strategy
+
+* SSH enabled on Ubuntu Server
+* Key-based authentication planned (implemented Week 2)
+* Access restricted to host IP
+* Used for:
+
+  * Monitoring
+  * Configuration
+  * Evidence collection
+
+📸 **Screenshot to capture**
+**Filename:** `week1-ssh-first-login.png`
+**Figure W1-9:** Initial SSH login from host to Ubuntu Server.
+
+---
+
+## Evidence Summary (Planned)
+
+| Evidence                    | Purpose                    |
+| --------------------------- | -------------------------- |
+| System architecture diagram | Show overall design        |
+| VirtualBox VM settings      | Validate resource planning |
+| Network configuration       | Demonstrate isolation      |
+| Directory structure         | Show organization          |
+| SSH connectivity            | Confirm manageability      |
 
 ---
 
 ## Reflection
 
-### Design Trade-offs
+### Key Design Decisions
 
-**Distribution Choice:**
-- Prioritized **documentation and support** over minimal footprint
-- Ubuntu's package availability outweighed Debian's lower resource usage
-- LTS releases provide stability needed for long-term testing
+* **Virtualization:** VirtualBox selected for stability and ease of use on macOS
+* **Networking:** Host-only network chosen to reduce attack surface
+* **OS Choice:** Ubuntu Server LTS for security and long-term support
 
-**Networking Challenges:**
-- **Static vs DHCP:** Manual IP assignment ensures predictable SSH connections
-- **NAT vs Host-Only:** Dual adapters balance security isolation with update requirements
-- **Internet Access:** Server isolation prevents unintended exposure while allowing workstation updates
+### Anticipated Challenges
 
-### Lessons Learned
-- VirtualBox Host-Only networks require careful adapter ordering
-- Static IPs simplify SSH key management and firewall rules
-- Baseline documentation proves invaluable for troubleshooting later changes
-
-### Next Steps
-- **Week 2:** Implement security hardening (SSH keys, firewall rules, fail2ban)
-- Develop automated testing scripts for network isolation verification
-- Prepare monitoring infrastructure (logs, metrics collection)
+* Resource constraints on host system
+* Ensuring consistent IP addressing
+* Maintaining clear documentation and evidence
 
 ---
 
-**[Home](../README.md)** | **[Week 2 →](week2.md)**
+## Learning Objectives Achieved
+
+✅ Infrastructure planning before deployment
+✅ Understanding virtualization and networking concepts
+✅ Designing secure-by-default environments
+✅ Structuring technical documentation
+
+---
+
+## References
+
+* VirtualBox Documentation
+  [https://www.virtualbox.org/manual/](https://www.virtualbox.org/manual/)
+
+* Ubuntu Server Documentation
+  [https://documentation.ubuntu.com/server/](https://documentation.ubuntu.com/server/)
+
+---
+
+**Week 1** | **[Week 2 →](week2-security-planning.md)**
+
