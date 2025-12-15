@@ -2,7 +2,7 @@
 
 # Week 3 — Application Selection for Performance Testing
 
-**[← Week 2](week2-security-planning.md)** | **Week 3** | **[Week 4 →](week4-security-implementation.md)**
+**[← Week 2](week2.md)** | **Week 3** | **[Week 4 →](week4.md)**
 
 ---
 
@@ -257,6 +257,6 @@ The planning completed here establishes a solid foundation for performance testi
 
 ---
 
-**[← Week 2](week2-security-planning.md)** | **Week 3** | **[Week 4 →](week4-security-implementation.md)**
+**[← Week 2](week2.md)** | **Week 3** | **[Week 4 →](week4.md)**
 
 
