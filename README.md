@@ -10,13 +10,13 @@ This repository documents the design, security hardening, performance testing, a
 - Secure internal communication with controlled internet access
 
 ## Weekly Documentation
-- [Week 1 – System Planning & Distribution Selection](docs/week1-system-planning.md)
-- [Week 2 – Security Planning & Testing Methodology](docs/week2-security-planning.md)
-- [Week 3 – Application Selection for Performance Testing](docs/week3-application-selection.md)
-- [Week 4 – Initial Configuration & Security Implementation](docs/week4-initial-security.md)
-- [Week 5 – Advanced Security & Monitoring](docs/week5-advanced-security.md)
-- [Week 6 – Performance Evaluation & Analysis](docs/week6-performance-evaluation.md)
-- [Week 7 – Security Audit & System Evaluation](docs/week7-security-audit.md)
+- [Week 1.md)
+- [Week 2.md)
+- [Week 3.md)
+- [Week 4.md)
+- [Week 5.md)
+- [Week 6.md)
+- [Week 7.md)
 
 ## Key Features
 - SSH key-based authentication
