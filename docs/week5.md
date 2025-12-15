@@ -345,5 +345,3 @@ network_metrics.csv
 **[← Week 4](week4.md)** | **Week 5** | **[Week 6 →](week6.md)**
 
 
-Just say the word 👍
-
