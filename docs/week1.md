@@ -173,8 +173,7 @@ repo-root/
 │   ├── week1-system-planning.md
 │   ├── week2-security-planning.md
 │   └── week3-application-selection.md
-├── assets/
-│   └── screenshots/
+├──screenshots/
 │       ├── week1/
 │       └── week2/
 └── scripts/
