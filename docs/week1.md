@@ -2,7 +2,7 @@
 
 # Week 1 — System Architecture & Environment Planning
 
-**[Home](../README.md)** | **Week 1** | **[Week 2 →](week2-security-planning.md)**
+**[Home](../README.md)** | **Week 1** | **[Week 2 →](week2.md)**
 
 ---
 
@@ -251,5 +251,5 @@ repo-root/
 
 ---
 
-**Week 1** | **[Week 2 →](week2-security-planning.md)**
+**Week 1** | **[Week 2 →](week2.md)**
 
