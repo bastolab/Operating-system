@@ -1,4 +1,5 @@
 
+
 # Week 6 — Performance Evaluation & Analysis
 
 ← **[Week 5](week5.md)** | **Week 6** | **[Week 7](week7.md)** →
@@ -60,9 +61,7 @@ All testing is performed **remotely via SSH**, with all security controls enable
 
 **Figure W6-1: Baseline system metrics captured during idle state**
 
-```md
 ![Baseline idle metrics](imagescreenshots/week6/w6-fig1-baseline.png)
-```
 
 ---
 
@@ -77,9 +76,7 @@ ssh user@server "stress-ng --cpu 4 --timeout 120"
 
 **Figure W6-2: CPU utilisation during stress-ng execution**
 
-```md
 ![CPU stress test](imagescreenshots/week6/w6-fig2-cpu-load.png)
-```
 
 ---
 
@@ -95,9 +92,7 @@ ssh user@server "fio --name=randrw --rw=randrw --bs=4k \
 
 **Figure W6-3: Disk I/O latency and throughput under fio load**
 
-```md
 ![Disk I/O test](imagescreenshots/week6/w6-fig3-disk-io.png)
-```
 
 ---
 
@@ -119,9 +114,7 @@ iperf3 -c <server-ip> -t 60
 
 **Figure W6-4: iperf3 throughput test results**
 
-```md
 ![Network throughput test](imagescreenshots/week6/w6-fig4-network.png)
-```
 
 ---
 
@@ -135,9 +128,7 @@ curl -w "%{time_total}\n" -o /dev/null -s http://<server-ip>
 
 **Figure W6-5: nginx response time under load**
 
-```md
 ![nginx performance](imagescreenshots/week6/w6-fig5-nginx.png)
-```
 
 ---
 
@@ -196,9 +187,13 @@ Graphs were generated using collected CSV data:
 
 **Figure W6-6: Baseline vs load vs optimised CPU usage**
 
-```md
 ![CPU comparison](imagescreenshots/week6/w6-fig6-cpu-compare.png)
-```
+
+---
+
+**Figure W6-7: CSV performance data files generated**
+
+![Data CSV files](imagescreenshots/week6/w6-fig7-data-files.png)
 
 ---
 
@@ -255,5 +250,5 @@ The system demonstrates that **strong security and high performance can coexist*
 
 ## Navigation
 
-← **[Week 5](week5.md)** | **Week 6** | **[Week 7](week7.md)**
+← **[Week 5](week5.md)** | **[Week 6]** | **[Week 7](week7.md)** →
 
