@@ -1,5 +1,5 @@
 
-# Week 5 — Advanced Security & Monitoring
+# Week 5 — Security Hardening & Performance Monitoring Automation
 
 **[← Week 4](week4.md)** | **Week 5** | **[Week 6 →](week6.md)**
 
@@ -7,295 +7,140 @@
 
 ## Overview
 
-Week 5 builds on the foundational security controls implemented in Week 4 by enabling advanced host-based security mechanisms and introducing automated monitoring and baseline validation scripts.
+Week 5 focuses on strengthening system security controls while implementing automated performance monitoring. Security mechanisms such as AppArmor, fail2ban, and unattended upgrades are enabled to harden the server, while lightweight monitoring scripts collect performance metrics for later analysis.
 
-The focus is on enforcing Mandatory Access Control (MAC), hardening against brute-force attacks, ensuring timely security patching, and preparing structured data collection for performance analysis in Week 6.
-
-All configuration, validation, and scripting are performed remotely via SSH to maintain a headless, production-like server environment.
+All configurations and scripts are managed remotely via SSH, maintaining a secure and headless server environment.
 
 ---
 
 ## Objectives
 
-* Enable and enforce Mandatory Access Control (AppArmor)
-* Configure automatic security updates
-* Deploy and configure fail2ban for SSH protection
-* Build a security baseline verification script
-* Build a remote performance monitoring script
+* Enforce Mandatory Access Control using AppArmor
+* Mitigate brute-force attacks using fail2ban
+* Enable automatic security updates
+* Deploy automated performance monitoring scripts
+* Generate structured performance data for analysis
 
 ---
 
 ## Deliverables
 
-* MAC enforcement evidence (`aa-status`)
-* Automatic update configuration and logs
-* fail2ban configuration and jail status
-* Fully commented scripts with execution evidence
-* Generated monitoring data (CSV format)
+* AppArmor enforcement evidence
+* fail2ban SSH jail configuration and status
+* unattended-upgrades configuration
+* Monitoring scripts and execution output
+* Generated CSV performance data
 
 ---
 
-## 1. Mandatory Access Control (MAC)
+## 1. Mandatory Access Control (AppArmor)
 
-### 1.1 MAC Selection
+AppArmor was enabled to provide service-level confinement and reduce the impact of potential compromises.
 
-**AppArmor** was selected due to:
+📸 **Screenshot**
+Filename: `week5-apparmor-statu.png`
 
-* Native integration with Ubuntu Server
-* Profile-based enforcement
-* Lower complexity compared to SELinux
-* Minimal performance overhead
+![AppArmor status](../imagescreenshots/week5/week5-apparmor-statu.png)
 
----
-
-### 1.2 AppArmor Status Verification
-
-AppArmor status was verified using:
-
-```bash
-sudo aa-status
-```
-
-Evidence confirms:
-
-* AppArmor enabled and running
-* Multiple profiles loaded in **enforce** mode
-* Service profiles (e.g., `nginx`) active where applicable
-
-📸 **Screenshot to capture**
-**Filename:** `week5-apparmor-status.png`
-
-```md
-![AppArmor Status](../assets/screenshots/week5/week5-apparmor-status.png)
-**Figure W5-1:** AppArmor enabled with active enforcing profiles.
-```
+**Figure W5-1:** AppArmor enforcing security profiles.
 
 ---
 
 ## 2. Automatic Security Updates
 
-### 2.1 Installation & Configuration
+Unattended upgrades were configured to automatically install security patches.
 
-Automatic security updates were enabled using `unattended-upgrades`:
+📸 **Screenshot**
+Filename: `week5-unattended-config.png`
 
-```bash
-sudo apt update
-sudo apt install -y unattended-upgrades
-```
+![Unattended upgrades configuration](../imagescreenshots/week5/week5-unattended-config.png)
 
-Configuration verified in:
-
-```text
-/etc/apt/apt.conf.d/50unattended-upgrades
-```
-
-Key settings:
-
-* Security updates **enabled**
-* Non-security updates **disabled**
-
-📸 **Screenshot to capture**
-**Filename:** `week5-unattended-config.png`
-
-```md
-![Unattended Upgrades Config](../assets/screenshots/week5/week5-unattended-config.png)
-**Figure W5-2:** unattended-upgrades configured for security updates only.
-```
+**Figure W5-2:** unattended-upgrades configuration for automatic security updates.
 
 ---
 
-### 2.2 Verification Evidence
+## 3. Intrusion Prevention with fail2ban
 
-Logs verified using:
+fail2ban was configured to protect SSH against brute-force attacks.
 
-```bash
-journalctl -u unattended-upgrades
-```
+### 3.1 SSH Jail Configuration
 
-This confirms that automatic updates are active and functioning correctly.
+📸 **Screenshot**
+Filename: `week5-fail2ban-jail.png`
 
-📸 **Screenshot to capture**
-**Filename:** `week5-unattended-logs.png`
+![fail2ban jail configuration](../imagescreenshots/week5/week5-fail2ban-jail.png)
 
-```md
-![Unattended Upgrades Logs](../assets/screenshots/week5/week5-unattended-logs.png)
-**Figure W5-3:** unattended-upgrades service logs confirming update activity.
-```
+**Figure W5-3:** fail2ban SSH jail configuration.
 
 ---
 
-## 3. fail2ban Configuration
+### 3.2 Jail Status Verification
 
-### 3.1 Installation
+📸 **Screenshot**
+Filename: `week5-fail2ban-status.png`
 
-fail2ban installed via APT:
+![fail2ban status](../imagescreenshots/week5/week5-fail2ban-status.png)
 
-```bash
-sudo apt install -y fail2ban
-```
-
----
-
-### 3.2 Jail Configuration
-
-Local jail configuration created:
-
-```bash
-sudo nano /etc/fail2ban/jail.local
-```
-
-**SSH Jail Configuration:**
-
-```ini
-[sshd]
-enabled = true
-port = ssh
-maxretry = 5
-bantime = 1h
-findtime = 10m
-```
-
-📸 **Screenshot to capture**
-**Filename:** `week5-fail2ban-jail.png`
-
-```md
-![fail2ban Jail Config](../assets/screenshots/week5/week5-fail2ban-jail.png)
-**Figure W5-4:** fail2ban SSH jail configuration.
-```
+**Figure W5-4:** Active fail2ban SSH jail protecting the server.
 
 ---
 
-### 3.3 fail2ban Verification
+## 4. Security Baseline Validation
 
-fail2ban status verified using:
+A security baseline script was executed to verify the applied hardening measures.
 
-```bash
-sudo fail2ban-client status
-sudo fail2ban-client status sshd
-```
+📸 **Screenshot**
+Filename: `week5-security-baseline-output.png`
 
-Evidence includes:
+![Security baseline output](../imagescreenshots/week5/week5-security-baseline-output.png)
 
-* SSH jail enabled
-* Failed attempt counters
-* Active bans (if triggered during testing)
-
-📸 **Screenshot to capture**
-**Filename:** `week5-fail2ban-status.png`
-
-```md
-![fail2ban Status](../assets/screenshots/week5/week5-fail2ban-status.png)
-**Figure W5-5:** fail2ban running with active SSH jail.
-```
+**Figure W5-5:** Output of security baseline verification script.
 
 ---
 
-## 4. Security Baseline Verification Script
+## 5. Performance Monitoring Automation
 
-### 4.1 Script Overview
+### 5.1 Monitoring Script Deployment
 
-**Script location:**
+Custom scripts were deployed to automate performance metric collection with minimal system impact.
 
-```text
-scripts/security-baseline.sh
-```
+📸 **Screenshot**
+Filename: `week5-monitor-script.png`
 
-This script validates the server’s security posture against defined requirements.
+![Monitoring script execution](../imagescreenshots/week5/week5-monitor-script.png)
 
----
-
-### 4.2 Checks Performed
-
-* SSH configuration (root login, password authentication)
-* Firewall status and rules (UFW)
-* AppArmor enforcement status
-* Automatic update configuration
-* fail2ban service and jail state
-* User accounts and sudoers configuration
-* Optional kernel security parameters
+**Figure W5-6:** Automated monitoring script collecting performance metrics.
 
 ---
 
-### 4.3 Script Execution Evidence
+### 5.2 Privilege Configuration
 
-```bash
-bash scripts/security-baseline.sh
-```
+Sudo permissions were configured to allow controlled execution of monitoring tasks.
 
-📸 **Screenshot to capture**
-**Filename:** `week5-security-baseline-output.png`
+📸 **Screenshot**
+Filename: `week5-sudoers-config.png`
 
-```md
-![Security Baseline Script](../assets/screenshots/week5/week5-security-baseline-output.png)
-**Figure W5-6:** Security baseline verification script output.
-```
+![Sudoers configuration](../imagescreenshots/week5/week5-sudoers-config.png)
+
+**Figure W5-7:** Least-privilege sudo configuration for monitoring scripts.
 
 ---
 
-## 5. Performance Monitoring Script
+### 5.3 Generated Data Evidence
 
-### 5.1 Script Overview
+CSV files generated in the `data/` directory:
 
-**Script location:**
+* `cpu_metrics.csv`
+* `memory_metrics.csv`
+* `disk_metrics.csv`
+* `network_metrics.csv`
 
-```text
-scripts/monitor-server.sh
-```
+📸 **Screenshot**
+Filename: `week5-csv-files.png`
 
-This script collects system performance metrics and appends them to CSV files for later analysis.
+![Monitoring CSV Files](../imagescreenshots/week5/week5-csv-files.png)
 
----
-
-### 5.2 Metrics Collected
-
-* CPU usage
-* Memory utilisation
-* Disk I/O statistics
-* Network activity
-* Load averages
-
-**Design Features:**
-
-* Timestamped output
-* Configurable sampling intervals
-* Minimal system overhead
-
----
-
-### 5.3 Script Execution Evidence
-
-```bash
-bash scripts/monitor-server.sh
-```
-
-📸 **Screenshot to capture**
-**Filename:** `week5-monitor-script.png`
-
-```md
-![Monitoring Script Execution](../assets/screenshots/week5/week5-monitor-script.png)
-**Figure W5-7:** Execution of remote monitoring script via SSH.
-```
-
----
-
-### 5.4 Generated Data Evidence
-
-CSV files generated in `data/` directory:
-
-```text
-cpu_metrics.csv
-memory_metrics.csv
-disk_metrics.csv
-network_metrics.csv
-```
-
-📸 **Screenshot to capture**
-**Filename:** `week5-csv-files.png`
-
-```md
-![Monitoring CSV Files](../assets/screenshots/week5/week5-csv-files.png)
 **Figure W5-8:** CSV files generated for performance analysis.
-```
 
 ---
 
@@ -305,18 +150,22 @@ network_metrics.csv
 
 * AppArmor enforces service-level confinement
 * fail2ban mitigates brute-force SSH attacks
-* Automatic updates reduce vulnerability window
+* Automatic updates reduce the vulnerability window
+
+---
 
 ### Performance Considerations
 
-* AppArmor overhead minimal and acceptable
-* Monitoring scripts designed for low impact
+* AppArmor overhead remains minimal and acceptable
+* Monitoring scripts are lightweight and non-intrusive
 * Update scheduling avoids peak workload hours
+
+---
 
 ### Adjustments & Exceptions
 
 * Firewall and fail2ban rules tuned for trusted workstation IP
-* Service profiles reviewed to prevent false positives
+* AppArmor profiles reviewed to prevent false positives
 
 ---
 
@@ -333,15 +182,13 @@ network_metrics.csv
 
 * **Figure W5-1:** AppArmor enforcing profiles
 * **Figure W5-2:** unattended-upgrades configuration
-* **Figure W5-3:** unattended-upgrades logs
-* **Figure W5-4:** fail2ban SSH jail configuration
-* **Figure W5-5:** fail2ban SSH jail status
-* **Figure W5-6:** Security baseline script output
-* **Figure W5-7:** Monitoring script execution
+* **Figure W5-3:** fail2ban SSH jail configuration
+* **Figure W5-4:** fail2ban SSH jail status
+* **Figure W5-5:** Security baseline script output
+* **Figure W5-6:** Monitoring script execution
+* **Figure W5-7:** Least-privilege sudo configuration
 * **Figure W5-8:** Generated CSV performance data
 
 ---
 
 **[← Week 4](week4.md)** | **Week 5** | **[Week 6 →](week6.md)**
-
-
