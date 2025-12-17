@@ -232,6 +232,19 @@ repo-root/
 
 ---
 
+Notes and evidence
+
+Chosen server distro: [replace with distro/version] because [stability/support/long-term updates/tooling].
+Workstation approach: [Option A/B/C]; SSH key storage path [~/.ssh/id_ed25519].
+Network: Host-only 192.168.56.103/24, static server IP 192.168.56.102, workstation 192.168.56.1.
+Commands run (examples):
+uname -a
+**Filename:** `uname -a.png`
+free -h
+**Filename:** `free -h.png`
+df -h
+**Filename:** df -h.png`
+
 ## Learning Objectives Achieved
 
 ✅ Infrastructure planning before deployment
