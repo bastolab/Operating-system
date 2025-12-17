@@ -1,6 +1,4 @@
-No problem at all! Here’s **Week 5** rewritten in the same style as Week 6, with diagrams properly linked for GitHub rendering. Everything from your report is preserved.
 
----
 
 # Week 5 — Security Hardening & Performance Monitoring Automation
 
@@ -148,16 +146,3 @@ Filename: `week5-sudoers-config.png`
 
 ← **[Week 4](week4.md)** | **Week 5** | **[Week 6 →](week6.md)**
 
----
-
-All images now use the **GitHub-ready path**:
-
-```
-../imagescreenshots/week5/<filename>.png
-```
-
----
-
-If you want, I can **redo Weeks 1–4 in this same style**, so all weeks are consistent and the diagrams display correctly.
-
-Do you want me to do that?
