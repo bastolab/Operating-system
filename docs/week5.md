@@ -135,10 +135,8 @@ CSV files generated in the `data/` directory:
 * `disk_metrics.csv`
 * `network_metrics.csv`
 
-📸 **Screenshot**
-Filename: `week5-csv-files.png`
 
-![Monitoring CSV Files](../imagescreenshots/week5/week5-csv-files.png)
+
 
 **Figure W5-8:** CSV files generated for performance analysis.
 
