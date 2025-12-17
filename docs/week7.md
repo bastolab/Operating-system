@@ -64,11 +64,6 @@ Key findings extracted using:
 grep -E "hardening_index|warning|suggestion" /var/log/lynis.log
 ```
 
-**Figure W7-1: Lynis audit execution on Ubuntu Server**
-
-```md
-![Lynis audit execution](docs/assets/w7-fig1-lynis-run.png)
-```
 
 ---
 
@@ -89,9 +84,7 @@ grep -E "hardening_index|warning|suggestion" /var/log/lynis.log
 
 **Figure W7-2: Lynis hardening score after remediation**
 
-```md
-![Lynis score](docs/assets/w7-fig2-lynis-score.png)
-```
+
 
 Audit logs stored in:
 
@@ -111,9 +104,6 @@ nmap -sV -Pn 192.168.56.10
 
 **Figure W7-3: Nmap service scan from trusted workstation**
 
-```md
-![Nmap scan](docs/assets/w7-fig3-nmap-scan.png)
-```
 
 ### Findings
 
@@ -139,7 +129,7 @@ Confirmed via configuration review and login testing:
 **Figure W7-4: SSH login using key-based authentication**
 
 ```md
-![SSH access](docs/assets/w7-fig4-ssh-access.png)
+
 ```
 
 ---
@@ -157,7 +147,7 @@ ssh user@server "sudo -l"
 **Figure W7-5: sudo privilege verification**
 
 ```md
-![Sudo privileges](docs/assets/w7-fig5-sudo.png)
+
 ```
 
 ---
@@ -170,12 +160,6 @@ ssh user@server "sudo aa-status"
 
 * AppArmor enabled and enforcing
 * Active profiles loaded for critical services
-
-**Figure W7-6: AppArmor enforcement status**
-
-```md
-![AppArmor status](docs/assets/w7-fig6-apparmor.png)
-```
 
 ---
 
@@ -269,5 +253,5 @@ Security improvements were validated quantitatively while maintaining acceptable
 ← **[Week 6](week6.md)** | **Week 7 (Final)**
 
 
-Just say the word.
+
 
