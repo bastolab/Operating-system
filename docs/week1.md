@@ -48,7 +48,7 @@ Week 1 focuses on planning the system architecture and deployment environment fo
 **Shows:** Host → VirtualBox → Ubuntu Server → SSH management
 
 ```md
-![System Architecture Diagram](../assets/screenshots/week1/week1-system-architecture.png)
+![System Architecture Diagram](imagescreenshots/week1/week1-system-architecture.png)
 **Figure W1-1:** High-level system architecture showing host, virtual machine, and management access.
 ```
 
@@ -67,7 +67,7 @@ Week 1 focuses on planning the system architecture and deployment environment fo
   * Evidence collection
   * GitHub repository management
 
-📸 **Screenshot to capture**
+📸 **Screenshot **
 **Filename:** `week1-host-info.png`
 **Figure W1-2:** Host system information confirming development environment.
 
@@ -86,7 +86,7 @@ Week 1 focuses on planning the system architecture and deployment environment fo
 * Memory: 2–4 GB RAM
 * Storage: 20–40 GB (VDI)
 
-📸 **Screenshot to capture**
+📸 **Screenshot **
 **Filename:** `week1-virtualbox-vm-settings.png`
 **Figure W1-3:** VirtualBox VM configuration showing allocated CPU, memory, and storage.
 
@@ -101,7 +101,7 @@ Week 1 focuses on planning the system architecture and deployment environment fo
 * Strong documentation and community
 * Native AppArmor integration
 
-📸 **Screenshot to capture**
+📸 **Screenshot **
 **Filename:** `week1-ubuntu-server-installed.png`
 **Figure W1-4:** Ubuntu Server successfully installed and booted.
 
@@ -120,7 +120,7 @@ Week 1 focuses on planning the system architecture and deployment environment fo
 * Predictable IP addressing
 * Suitable for testing and demonstrations
 
-📸 **Screenshot to capture**
+📸 **Screenshot**
 **Filename:** `week1-network-topology.png`
 **Figure W1-5:** Host-only network configuration in VirtualBox.
 
@@ -130,10 +130,11 @@ Week 1 focuses on planning the system architecture and deployment environment fo
 
 | Component     | IP Address     |
 | ------------- | -------------- |
-| Host (macOS)  | 192.168.56.1   |
+| work
+  station       | 192.168.56.102   |
 | Ubuntu Server | 192.168.56.103 |
 
-📸 **Screenshot to capture**
+📸 **Screenshot **
 **Filename:** `week1-ip-config.png`
 **Figure W1-6:** IP configuration verification on Ubuntu Server.
 
@@ -158,7 +159,7 @@ Week 1 focuses on planning the system architecture and deployment environment fo
 * `logs/`: System and application logs
 * `backups/`: Configuration backups
 
-📸 **Screenshot to capture**
+📸 **Screenshot **
 **Filename:** `week1-server-directories.png`
 **Figure W1-7:** Planned directory structure on the server.
 
@@ -179,7 +180,7 @@ repo-root/
 └── scripts/
 ```
 
-📸 **Screenshot to capture**
+📸 **Screenshot **
 **Filename:** `week1-repo-structure.png`
 **Figure W1-8:** GitHub repository structure prepared for documentation and evidence.
 
@@ -198,11 +199,6 @@ repo-root/
   * Configuration
   * Evidence collection
 
-📸 **Screenshot to capture**
-**Filename:** `week1-ssh-first-login.png`
-**Figure W1-9:** Initial SSH login from host to Ubuntu Server.
-
----
 
 ## Evidence Summary (Planned)
 
@@ -265,4 +261,3 @@ df -h
 ---
 
 **Week 1** | **[Week 2 →](week2.md)**
-
