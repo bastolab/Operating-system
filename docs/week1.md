@@ -1,8 +1,7 @@
 
+## Week 1 — System Architecture & Environment Planning
 
-# Week 1 — System Architecture & Environment Planning
-
-**[Home](../README.md)** | **Week 1** | **[Week 2 →](week2.md)**
+Home | Week 1 | Week 2 →
 
 ---
 
@@ -43,32 +42,38 @@ Week 1 focuses on planning the system architecture and deployment environment fo
 * Management performed remotely via SSH
 * Isolated host-only network for secure access
 
-📸 **Screenshot / Diagram to include**
-**Filename:** `week1-system-architecture.png`
-**Shows:** Host → VirtualBox → Ubuntu Server → SSH management
+📸 **Screenshot / Diagram**
+Filename: `week1-system-architecture.png`
 
-```md
-![System Architecture Diagram](imagescreenshots/week1/week1-system-architecture.png)
-**Figure W1-1:** High-level system architecture showing host, virtual machine, and management access.
+```markdown
+![System Architecture Diagram](../imagescreenshots/week1/week1-system-architecture.png)
 ```
+
+**Figure W1-1:** High-level system architecture showing host, virtual machine, and management access.
 
 ---
 
-### 1.2 Host Environment
+## 1.2 Host Environment
 
 **Host System**
 
 * Operating System: macOS
 * Role: Development workstation and management console
-* Responsibilities:
 
-  * SSH access
-  * Monitoring execution
-  * Evidence collection
-  * GitHub repository management
+**Responsibilities**
 
-📸 **Screenshot **
-**Filename:** `week1-host-info.png`
+* SSH access
+* Monitoring execution
+* Evidence collection
+* GitHub repository management
+
+📸 **Screenshot**
+Filename: `week1-host-info.png`
+
+```markdown
+![Host System Information](../imagescreenshots/week1/week1-host-info.png)
+```
+
 **Figure W1-2:** Host system information confirming development environment.
 
 ---
@@ -77,8 +82,8 @@ Week 1 focuses on planning the system architecture and deployment environment fo
 
 ### 2.1 VirtualBox Configuration
 
-**Virtualization Tool:** VirtualBox
-**Guest OS:** Ubuntu Server LTS
+* Virtualization Tool: VirtualBox
+* Guest OS: Ubuntu Server LTS
 
 **Planned VM Resources**
 
@@ -86,8 +91,13 @@ Week 1 focuses on planning the system architecture and deployment environment fo
 * Memory: 2–4 GB RAM
 * Storage: 20–40 GB (VDI)
 
-📸 **Screenshot **
-**Filename:** `week1-virtualbox-vm-settings.png`
+📸 **Screenshot**
+Filename: `week1-virtualbox-vm-settings.png`
+
+```markdown
+![VirtualBox VM Settings](../imagescreenshots/week1/week1-virtualbox-vm-settings.png)
+```
+
 **Figure W1-3:** VirtualBox VM configuration showing allocated CPU, memory, and storage.
 
 ---
@@ -101,8 +111,13 @@ Week 1 focuses on planning the system architecture and deployment environment fo
 * Strong documentation and community
 * Native AppArmor integration
 
-📸 **Screenshot **
-**Filename:** `week1-ubuntu-server-installed.png`
+📸 **Screenshot**
+Filename: `week1-ubuntu-server-installed.png`
+
+```markdown
+![Ubuntu Server Installed](../imagescreenshots/week1/week1-ubuntu-server-installed.png)
+```
+
 **Figure W1-4:** Ubuntu Server successfully installed and booted.
 
 ---
@@ -111,7 +126,7 @@ Week 1 focuses on planning the system architecture and deployment environment fo
 
 ### 3.1 Network Topology
 
-**Network Mode:** Host-only Adapter
+* Network Mode: Host-only Adapter
 
 **Design Rationale**
 
@@ -121,7 +136,12 @@ Week 1 focuses on planning the system architecture and deployment environment fo
 * Suitable for testing and demonstrations
 
 📸 **Screenshot**
-**Filename:** `week1-network-topology.png`
+Filename: `workstationnat.png`
+
+```markdown
+![Network Topology](../imagescreenshots/week1/workstationnat.png)
+```
+
 **Figure W1-5:** Host-only network configuration in VirtualBox.
 
 ---
@@ -130,12 +150,16 @@ Week 1 focuses on planning the system architecture and deployment environment fo
 
 | Component     | IP Address     |
 | ------------- | -------------- |
-| work
-  station       | 192.168.56.102   |
+| Workstation   | 192.168.56.102 |
 | Ubuntu Server | 192.168.56.103 |
 
-📸 **Screenshot **
-**Filename:** `week1-ip-config.png`
+📸 **Screenshot**
+Filename: `week1-ip-config.png`
+
+```markdown
+![IP Configuration](../imagescreenshots/week1/week1-ip-config.png)
+```
+
 **Figure W1-6:** IP configuration verification on Ubuntu Server.
 
 ---
@@ -144,7 +168,7 @@ Week 1 focuses on planning the system architecture and deployment environment fo
 
 ### 4.1 Planned Server Directory Structure
 
-```text
+```
 /opt/project/
 ├── scripts/
 ├── data/
@@ -159,87 +183,68 @@ Week 1 focuses on planning the system architecture and deployment environment fo
 * `logs/`: System and application logs
 * `backups/`: Configuration backups
 
-📸 **Screenshot **
-**Filename:** `week1-server-directories.png`
-**Figure W1-7:** Planned directory structure on the server.
+📸 **Screenshot**
+*(if you have one, add it here using same pattern)*
 
 ---
 
 ### 4.2 GitHub Repository Structure
 
-```text
+```
 repo-root/
 ├── README.md
 ├── docs/
-│   ├── week1-system-planning.md
-│   ├── week2-security-planning.md
-│   └── week3-application-selection.md
-├──screenshots/
-│       ├── week1/
-│       └── week2/
+│   └── week1.md
+├── imagescreenshots/
+│   └── week1/
 └── scripts/
 ```
 
-📸 **Screenshot **
-**Filename:** `week1-repo-structure.png`
-**Figure W1-8:** GitHub repository structure prepared for documentation and evidence.
+📸 **Screenshot**
+*(add repo screenshot here if available)*
 
 ---
 
 ## 5. Remote Management Plan
 
-### SSH Access Strategy
+**SSH Access Strategy**
 
 * SSH enabled on Ubuntu Server
-* Key-based authentication planned (implemented Week 2)
+* Key-based authentication planned (Week 2)
 * Access restricted to host IP
-* Used for:
 
-  * Monitoring
-  * Configuration
-  * Evidence collection
+**Used for**
 
-
-## Evidence Summary (Planned)
-
-| Evidence                    | Purpose                    |
-| --------------------------- | -------------------------- |
-| System architecture diagram | Show overall design        |
-| VirtualBox VM settings      | Validate resource planning |
-| Network configuration       | Demonstrate isolation      |
-| Directory structure         | Show organization          |
-| SSH connectivity            | Confirm manageability      |
+* Monitoring
+* Configuration
+* Evidence collection
 
 ---
 
-## Reflection
+## Evidence: System Commands
 
-### Key Design Decisions
+📸 **uname -a**
+Filename: `uname -a.png`
 
-* **Virtualization:** VirtualBox selected for stability and ease of use on macOS
-* **Networking:** Host-only network chosen to reduce attack surface
-* **OS Choice:** Ubuntu Server LTS for security and long-term support
+```markdown
+![uname -a](../imagescreenshots/week1/uname -a.png)
+```
 
-### Anticipated Challenges
+📸 **free -h**
+Filename: `free -h.png`
 
-* Resource constraints on host system
-* Ensuring consistent IP addressing
-* Maintaining clear documentation and evidence
+```markdown
+![free -h](../imagescreenshots/week1/free -h.png)
+```
+
+📸 **df -h**
+Filename: `df -h.png`
+
+```markdown
+![df -h](../imagescreenshots/week1/df -h.png)
+```
 
 ---
-
-Notes and evidence
-
-Chosen server distro: [replace with distro/version] because [stability/support/long-term updates/tooling].
-Workstation approach: [Option A/B/C]; SSH key storage path [~/.ssh/id_ed25519].
-Network: Host-only 192.168.56.103/24, static server IP 192.168.56.102, workstation 192.168.56.1.
-Commands run (examples):
-uname -a
-**Filename:** `uname -a.png`
-free -h
-**Filename:** `free -h.png`
-df -h
-**Filename:** df -h.png`
 
 ## Learning Objectives Achieved
 
@@ -260,4 +265,6 @@ df -h
 
 ---
 
-**Week 1** | **[Week 2 →](week2.md)**
+## Week 1 | Week 2 →
+
+
