@@ -1,5 +1,4 @@
 
-
 # Week 3 — Application Selection for Performance Testing
 
 **[← Week 2](week2.md)** | **Week 3** | **[Week 4 →](week4.md)**
@@ -27,7 +26,7 @@ Expected resource utilisation patterns are defined in advance to enable meaningf
 
 ## Deliverables
 
-* Application Selection Matrix
+* Application selection matrix
 * Installation documentation with exact commands
 * Expected resource utilisation profiles
 * Monitoring strategy for each workload
@@ -62,13 +61,12 @@ The following workload types are evaluated:
 
 ### 3.1 SSH Access Verification
 
-📸 **Screenshot to capture**
-**Filename:** `week3-ssh-access.png`
+📸 **Screenshot**
+Filename: `week3-ssh-access.png`
 
-```md
-![SSH Access Verification](../assets/screenshots/week3/week3-ssh-access.png)
-**Figure W3-1:** Successful SSH connection from Ubuntu Workstation to Ubuntu Server.
-```
+![SSH Access Verification](../imagescreenshots/week3/week3-ssh-access.png)
+
+**Figure W3-1:** Successful SSH connection from workstation to Ubuntu Server.
 
 This confirms the server is administered remotely without local GUI access.
 
@@ -83,13 +81,12 @@ sudo apt update
 sudo apt install -y stress-ng fio iperf3 nginx sysstat
 ```
 
-📸 **Screenshot to capture**
-**Filename:** `week3-app-installation.png`
+📸 **Screenshot**
+Filename: `week3-app-installation.png`
 
-```md
-![Application Installation](../assets/screenshots/week3/week3-app-installation.png)
+![Application Installation](../imagescreenshots/week3/week3-app-installation.png)
+
 **Figure W3-2:** Installation of performance testing applications via SSH.
-```
 
 ---
 
@@ -104,13 +101,12 @@ iperf3 --version
 nginx -v
 ```
 
-📸 **Screenshot to capture**
-**Filename:** `week3-app-verification.png`
+📸 **Screenshot**
+Filename: `week3-app-verification.png`
 
-```md
-![Application Verification](../assets/screenshots/week3/week3-app-verification.png)
+![Application Verification](../imagescreenshots/week3/week3-app-verification.png)
+
 **Figure W3-3:** Version outputs confirming successful installation.
-```
 
 ---
 
@@ -120,13 +116,12 @@ nginx -v
 
 Before executing workloads, baseline system utilisation is captured.
 
-📸 **Screenshot to capture**
-**Filename:** `week3-baseline-idle.png`
+📸 **Screenshot**
+Filename: `week3-baseline-idle.png`
 
-```md
-![Baseline Metrics](../assets/screenshots/week3/week3-baseline-idle.png)
+![Baseline Metrics](../imagescreenshots/week3/week3-baseline-idle.png)
+
 **Figure W3-4:** Baseline system resource usage under idle conditions.
-```
 
 Baseline metrics serve as a reference point for active testing.
 
@@ -138,13 +133,12 @@ Baseline metrics serve as a reference point for active testing.
 stress-ng --cpu 4 --timeout 60s
 ```
 
-📸 **Screenshot to capture**
-**Filename:** `week3-cpu-stress.png`
+📸 **Screenshot**
+Filename: `week3-cpu-stress.png`
 
-```md
-![CPU Stress Test](../assets/screenshots/week3/week3-cpu-stress.png)
+![CPU Stress Test](../imagescreenshots/week3/week3-cpu-stress.png)
+
 **Figure W3-5:** CPU utilisation during stress-ng execution.
-```
 
 ---
 
@@ -154,13 +148,12 @@ stress-ng --cpu 4 --timeout 60s
 systemctl status nginx
 ```
 
-📸 **Screenshot to capture**
-**Filename:** `week3-nginx-status.png`
+📸 **Screenshot**
+Filename: `week3-nginx-status.png`
 
-```md
-![nginx Service Status](../assets/screenshots/week3/week3-nginx-status.png)
+![nginx Service Status](../imagescreenshots/week3/week3-nginx-status.png)
+
 **Figure W3-6:** nginx running as a representative server-based workload.
-```
 
 ---
 
@@ -230,17 +223,6 @@ The planning completed here establishes a solid foundation for performance testi
 
 ---
 
-## Image Caption Reference (Quick Copy)
-
-* **Figure W3-1:** SSH access verification
-* **Figure W3-2:** Application installation
-* **Figure W3-3:** Application version verification
-* **Figure W3-4:** Baseline idle metrics
-* **Figure W3-5:** CPU workload execution
-* **Figure W3-6:** nginx service status
-
----
-
 ## References
 
 * stress-ng Documentation
@@ -258,5 +240,4 @@ The planning completed here establishes a solid foundation for performance testi
 ---
 
 **[← Week 2](week2.md)** | **Week 3** | **[Week 4 →](week4.md)**
-
 
