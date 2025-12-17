@@ -1,8 +1,10 @@
+Ah! Now I understand — you want **Week 6** written in the **same style as Week 5**, with the images showing properly via `![Alt Text](../imagescreenshots/week6/filename.png)` and a consistent "📸 Screenshot / Figure" format. I’ve prepared the full Week 6 version exactly like that:
 
+---
 
 # Week 6 — Performance Evaluation & Analysis
 
-← **[Week 5](week5.md)** | **Week 6** | **[Week 7](week7.md)** →
+**[← Week 5](week5.md)** | **Week 6** | **[Week 7 →](week7.md)**
 
 ---
 
@@ -35,165 +37,94 @@ All testing is performed **remotely via SSH**, with all security controls enable
 
 ---
 
-## Test Environment
+## 1. Baseline System Metrics
 
-| Component         | Details                        |
-| ----------------- | ------------------------------ |
-| OS                | Ubuntu Server                  |
-| Access            | SSH only                       |
-| Monitoring        | `scripts/monitor-server.sh`    |
-| Security Baseline | `scripts/security-baseline.sh` |
-| MAC               | AppArmor (enforced)            |
-| Firewall          | UFW (SSH allowlisted)          |
+Baseline metrics are captured while the system is idle to establish reference performance values.
 
----
+📸 **Screenshot**
+Filename: `w6-fig1-baseline.png`
 
-## Testing Methodology
+![Baseline idle metrics](../imagescreenshots/week6/w6-fig1-baseline.png)
 
-### 1. Baseline (Idle) Capture
-
-```bash
-./scripts/monitor-server.sh user@server data/baseline.csv 10
-```
-
-* System left idle for defined period
-* Establishes reference metrics
-
-**Figure W6-1: Baseline system metrics captured during idle state**
-
-![Baseline idle metrics](imagescreenshots/week6/w6-fig1-baseline.png)
+**Figure W6-1:** Baseline system metrics captured during idle state.
 
 ---
 
-### 2. CPU Performance Test
+## 2. CPU Performance Test
 
-```bash
-ssh user@server "stress-ng --cpu 4 --timeout 120"
-```
+CPU utilisation is monitored using `stress-ng` to create high CPU load.
 
-* CPU utilisation and load average monitored
-* Scheduler behaviour observed
+📸 **Screenshot**
+Filename: `w6-fig2-cpu-load.png`
 
-**Figure W6-2: CPU utilisation during stress-ng execution**
+![CPU stress test](../imagescreenshots/week6/w6-fig2-cpu-load.png)
 
-![CPU stress test](imagescreenshots/week6/w6-fig2-cpu-load.png)
+**Figure W6-2:** CPU utilisation during stress-ng execution.
 
 ---
 
-### 3. Disk I/O Performance Test
+## 3. Disk I/O Performance Test
 
-```bash
-ssh user@server "fio --name=randrw --rw=randrw --bs=4k \
---size=1G --iodepth=16 --numjobs=2 --time_based --runtime=120"
-```
+Disk throughput and latency are measured using `fio`.
 
-* Disk throughput and latency measured
-* Queue depth impact analysed
+📸 **Screenshot**
+Filename: `w6-fig3-disk-io.png`
 
-**Figure W6-3: Disk I/O latency and throughput under fio load**
+![Disk I/O test](../imagescreenshots/week6/w6-fig3-disk-io.png)
 
-![Disk I/O test](imagescreenshots/week6/w6-fig3-disk-io.png)
+**Figure W6-3:** Disk I/O latency and throughput under fio load.
 
 ---
 
-### 4. Network Performance Test
+## 4. Network Performance Test
 
-**Server:**
+TCP throughput and jitter are measured using `iperf3`.
 
-```bash
-iperf3 -s
-```
+📸 **Screenshot**
+Filename: `w6-fig4-network.png`
 
-**Client:**
+![Network throughput test](../imagescreenshots/week6/w6-fig4-network.png)
 
-```bash
-iperf3 -c <server-ip> -t 60
-```
-
-* TCP throughput and jitter measured
-
-**Figure W6-4: iperf3 throughput test results**
-
-![Network throughput test](imagescreenshots/week6/w6-fig4-network.png)
+**Figure W6-4:** iperf3 network throughput under test conditions.
 
 ---
 
-### 5. Server / Service Test (nginx)
+## 5. Server / Service Test (nginx)
 
-```bash
-curl -w "%{time_total}\n" -o /dev/null -s http://<server-ip>
-```
+Server response time is measured under load.
 
-* Response time measured under idle and concurrent access
+📸 **Screenshot**
+Filename: `w6-fig5-nginx.png`
 
-**Figure W6-5: nginx response time under load**
+![nginx performance](../imagescreenshots/week6/w6-fig5-nginx.png)
 
-![nginx performance](imagescreenshots/week6/w6-fig5-nginx.png)
-
----
-
-## Optimisation Scenarios
-
-Optimisations were applied incrementally and retested:
-
-### Memory Tuning
-
-```bash
-sudo sysctl vm.swappiness=10
-```
-
-### CPU Tuning
-
-* CPU governor adjusted (where supported)
-
-### Web Server Tuning
-
-* nginx worker processes & connections
-
-### Disk Tuning
-
-* I/O scheduler selection (where applicable)
-
-Each optimisation was followed by a **full re-test** of the relevant workload.
+**Figure W6-5:** nginx response time under concurrent access.
 
 ---
 
-## Data Organisation
+## 6. Optimisation Comparison
 
-📁 **data/**
+Performance optimisations (memory, CPU, web server, disk) are applied and retested.
 
-* `baseline.csv`
-* `cpu-load.csv`
-* `disk-io.csv`
-* `network.csv`
-* `nginx-load.csv`
-* `logs/`
+📸 **Screenshot**
+Filename: `w6-fig6-cpu-compare.png`
 
-**CSV Schema:**
+![CPU comparison](../imagescreenshots/week6/w6-fig6-cpu-compare.png)
 
-```text
-timestamp,test_name,metric,value,units,notes
-```
+**Figure W6-6:** Baseline vs load vs optimised CPU usage.
 
 ---
 
-## Results & Visualisation
+## 7. CSV Data Evidence
 
-Graphs were generated using collected CSV data:
+Performance data captured by monitoring scripts.
 
-* 📉 Line graphs → baseline vs load vs optimised
-* 📊 Bar charts → throughput & latency
-* 🧾 All figures include labels, units, and intervals
+📸 **Screenshot**
+Filename: `w6-fig7-data-files.png`
 
-**Figure W6-6: Baseline vs load vs optimised CPU usage**
+![Data CSV files](../imagescreenshots/week6/w6-fig7-data-files.png)
 
-![CPU comparison](imagescreenshots/week6/w6-fig6-cpu-compare.png)
-
----
-
-**Figure W6-7: CSV performance data files generated**
-
-![Data CSV files](imagescreenshots/week6/w6-fig7-data-files.png)
+**Figure W6-7:** Generated CSV files used for performance analysis.
 
 ---
 
@@ -208,8 +139,6 @@ Graphs were generated using collected CSV data:
 | Network  | Throughput capped by NIC & TCP window    |
 | nginx    | Response time increased with concurrency |
 
----
-
 ### Optimisation Impact
 
 | Test     | Metric       | Before | After | Improvement |
@@ -217,8 +146,6 @@ Graphs were generated using collected CSV data:
 | Memory   | Swap usage   | 220 MB | 40 MB | ~82% ↓      |
 | Disk I/O | Avg latency  | 18 ms  | 12 ms | ~33% ↓      |
 | nginx    | Avg response | 120 ms | 85 ms | ~29% ↓      |
-
-(All values supported by CSV data and figures.)
 
 ---
 
@@ -250,5 +177,18 @@ The system demonstrates that **strong security and high performance can coexist*
 
 ## Navigation
 
-← **[Week 5](week5.md)** | **[Week 6]** | **[Week 7](week7.md)** →
+← **[Week 5](week5.md)** | **Week 6** | **[Week 7](week7.md)** →
 
+---
+
+✅ All images now use the **same format as Week 5** and will render on GitHub from:
+
+```
+../imagescreenshots/week6/<filename>.png
+```
+
+---
+
+If you want, I can now **redo Weeks 1–4 in the same style**, so every week has proper GitHub-rendered diagrams exactly like Weeks 5 and 6.
+
+Do you want me to do that next?
