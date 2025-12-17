@@ -1,178 +1,190 @@
 
 
-# Week 6 — Performance Evaluation & Analysis
+# Week 5 — Security Hardening & Monitoring Automation
 
-**[← Week 5](week5.md)** | **Week 6** | **[Week 7 →](week7.md)**
+**[← Week 4](week4.md)** | **Week 5** | **[Week 6 →](week6.md)**
 
 ---
 
 ## Overview
 
-Week 6 executes the planned performance tests and analyses system behaviour under **baseline**, **load**, and **optimised** conditions.
-Using the applications selected in Week 3 and the monitoring scripts prepared in Week 5, metrics are collected consistently to identify bottlenecks, quantify improvements, and evaluate **security vs performance trade-offs**.
-
-All testing is performed **remotely via SSH**, with all security controls enabled to reflect real-world server operation.
+Week 5 focuses on strengthening the server security baseline while introducing lightweight monitoring automation. Mandatory Access Control (AppArmor), intrusion prevention (fail2ban), and automatic security updates are enabled. Custom scripts are deployed to collect performance metrics in preparation for controlled testing in Week 6.
 
 ---
 
 ## Objectives
 
-* Execute performance tests for all selected workload categories
-* Capture CPU, memory, disk, and network metrics
-* Compare baseline vs load vs optimised states
-* Identify bottlenecks using quantitative evidence
-* Present results using tables and visualisations
+* Enforce Mandatory Access Control
+* Protect SSH from brute-force attacks
+* Enable unattended security updates
+* Deploy monitoring scripts for performance data
+* Generate structured CSV output for analysis
 
 ---
 
 ## Deliverables
 
-* 📄 CSV performance datasets (`data/`)
-* 📊 Graphs and charts (`docs/assets/`)
-* 🧪 Testing evidence (command outputs & screenshots)
-* 📈 Optimisation comparisons (before / after)
-* 📝 Performance analysis with conclusions
+* AppArmor enforcement evidence
+* fail2ban configuration and status
+* unattended-upgrades configuration
+* Monitoring script execution
+* Generated CSV performance data
 
 ---
 
-## 1. Baseline System Metrics
-
-Baseline metrics are captured while the system is idle to establish reference performance values.
+## 1. Mandatory Access Control (AppArmor)
 
 📸 **Screenshot**
-Filename: `w6-fig1-baseline.png`
+**Filename:** `week5-apparmor-statu.png`
 
-![Baseline idle metrics](../imagescreenshots/week6/w6-fig1-baseline.png)
+```md
+![AppArmor Status](../imagescreenshots/week5/week5-apparmor-statu.png)
+```
 
-**Figure W6-1:** Baseline system metrics captured during idle state.
+**Figure W5-1:** AppArmor enforcing security profiles.
 
 ---
 
-## 2. CPU Performance Test
-
-CPU utilisation is monitored using `stress-ng` to create high CPU load.
+## 2. Automatic Security Updates
 
 📸 **Screenshot**
-Filename: `w6-fig2-cpu-load.png`
+**Filename:** `week5-unattended-config.png`
 
-![CPU stress test](../imagescreenshots/week6/w6-fig2-cpu-load.png)
+```md
+![Unattended Upgrades Configuration](../imagescreenshots/week5/week5-unattended-config.png)
+```
 
-**Figure W6-2:** CPU utilisation during stress-ng execution.
+**Figure W5-2:** unattended-upgrades configuration.
 
 ---
 
-## 3. Disk I/O Performance Test
+## 3. Intrusion Prevention (fail2ban)
 
-Disk throughput and latency are measured using `fio`.
+### 3.1 SSH Jail Configuration
 
 📸 **Screenshot**
-Filename: `w6-fig3-disk-io.png`
+**Filename:** `week5-fail2ban-jail.png`
 
-![Disk I/O test](../imagescreenshots/week6/w6-fig3-disk-io.png)
+```md
+![fail2ban SSH Jail](../imagescreenshots/week5/week5-fail2ban-jail.png)
+```
 
-**Figure W6-3:** Disk I/O latency and throughput under fio load.
+**Figure W5-3:** fail2ban SSH jail configuration.
 
 ---
 
-## 4. Network Performance Test
-
-TCP throughput and jitter are measured using `iperf3`.
+### 3.2 fail2ban Status
 
 📸 **Screenshot**
-Filename: `w6-fig4-network.png`
+**Filename:** `week5-fail2ban-status.png`
 
-![Network throughput test](../imagescreenshots/week6/w6-fig4-network.png)
+```md
+![fail2ban Status](../imagescreenshots/week5/week5-fail2ban-status.png)
+```
 
-**Figure W6-4:** iperf3 network throughput under test conditions.
+**Figure W5-4:** Active fail2ban service protecting SSH.
 
 ---
 
-## 5. Server / Service Test (nginx)
-
-Server response time is measured under load.
+## 4. Security Baseline Script
 
 📸 **Screenshot**
-Filename: `w6-fig5-nginx.png`
+**Filename:** `week5-security-baseline-output.png`
 
-![nginx performance](../imagescreenshots/week6/w6-fig5-nginx.png)
+```md
+![Security Baseline Output](../imagescreenshots/week5/week5-security-baseline-output.png)
+```
 
-**Figure W6-5:** nginx response time under concurrent access.
+**Figure W5-5:** Security baseline verification output.
 
 ---
 
-## 6. Optimisation Comparison
+## 5. Monitoring Automation
 
-Performance optimisations (memory, CPU, web server, disk) are applied and retested.
+### 5.1 Monitoring Script Execution
 
 📸 **Screenshot**
-Filename: `w6-fig6-cpu-compare.png`
+**Filename:** `week5-monitor-script.png`
 
-![CPU comparison](../imagescreenshots/week6/w6-fig6-cpu-compare.png)
+```md
+![Monitoring Script Execution](../imagescreenshots/week5/week5-monitor-script.png)
+```
 
-**Figure W6-6:** Baseline vs load vs optimised CPU usage.
+**Figure W5-6:** Performance monitoring script execution.
 
 ---
 
-## 7. CSV Data Evidence
-
-Performance data captured by monitoring scripts.
+### 5.2 Privilege Control Verification
 
 📸 **Screenshot**
-Filename: `w6-fig7-data-files.png`
+**Filename:** `week5-sudoers-config.png`
 
-![Data CSV files](../imagescreenshots/week6/w6-fig7-data-files.png)
+```md
+![Sudoers Configuration](../imagescreenshots/week5/week5-sudoers-config.png)
+```
 
-**Figure W6-7:** Generated CSV files used for performance analysis.
-
----
-
-## Performance Analysis
-
-### Bottleneck Identification
-
-| Workload | Observation                              |
-| -------- | ---------------------------------------- |
-| CPU      | Saturation at sustained 100% utilisation |
-| Disk     | Latency spikes at high queue depth       |
-| Network  | Throughput capped by NIC & TCP window    |
-| nginx    | Response time increased with concurrency |
-
-### Optimisation Impact
-
-| Test     | Metric       | Before | After | Improvement |
-| -------- | ------------ | ------ | ----- | ----------- |
-| Memory   | Swap usage   | 220 MB | 40 MB | ~82% ↓      |
-| Disk I/O | Avg latency  | 18 ms  | 12 ms | ~33% ↓      |
-| nginx    | Avg response | 120 ms | 85 ms | ~29% ↓      |
+**Figure W5-7:** Least-privilege sudo configuration.
 
 ---
 
-## Security vs Performance
+### 5.3 Generated Data Evidence
 
-* AppArmor overhead: **<2% CPU variance**
-* fail2ban: **no measurable impact**
-* Automatic updates scheduled outside test windows
-* All security controls remained enabled during testing
+CSV files generated in the `data/` directory:
 
----
+```text
+cpu_metrics.csv
+memory_metrics.csv
+disk_metrics.csv
+network_metrics.csv
+```
 
-## Reflection
+📸 **Screenshot**
+**Filename:** `week5-csv-files.png`
 
-* CPU saturation was the dominant bottleneck
-* Disk tuning delivered the largest performance gains
-* Optimisations were workload-specific
-* Security controls provided strong protection with minimal cost
+```md
+![Monitoring CSV Files](../imagescreenshots/week5/week5-csv-files.png)
+```
 
----
-
-## Conclusion
-
-Week 6 validates the **complete performance lifecycle**: planning → secure configuration → execution → optimisation → analysis.
-
-The system demonstrates that **strong security and high performance can coexist** when monitoring and tuning are applied methodically.
+**Figure W5-8:** CSV files generated for performance analysis.
 
 ---
 
-## Navigation
+## Reflection (Week 5)
 
-← **[Week 5](week5.md)** | **Week 6** | **[Week 7](week7.md)** →
+### Security Enhancements
+
+* AppArmor enforces service-level confinement
+* fail2ban mitigates brute-force SSH attacks
+* Automatic updates reduce vulnerability window
+
+### Performance Considerations
+
+* AppArmor overhead minimal and acceptable
+* Monitoring scripts designed for low impact
+* Update scheduling avoids peak workload hours
+
+---
+
+## Preparation for Week 6
+
+* Define workload durations and sampling intervals
+* Validate monitoring scripts under idle and load conditions
+* Confirm data structure for analysis and visualisation
+* Begin controlled performance testing
+
+---
+
+## Image Caption Reference
+
+* **Figure W5-1:** AppArmor enforcing profiles
+* **Figure W5-2:** unattended-upgrades configuration
+* **Figure W5-3:** fail2ban SSH jail configuration
+* **Figure W5-4:** fail2ban SSH jail status
+* **Figure W5-5:** Security baseline script output
+* **Figure W5-6:** Monitoring script execution
+* **Figure W5-7:** Sudoers least-privilege configuration
+* **Figure W5-8:** Generated CSV performance data
+
+---
+
+**[← Week 4](week4.md)** | **Week 5** | **[Week 6 →](week6.md)**
