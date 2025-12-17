@@ -1,7 +1,6 @@
 
----
 
-# Week 4 — Initial Configuration & Security Implementation
+# Week 4 — Secure Remote Administration & Access Control
 
 **[← Week 3](week3.md)** | **Week 4** | **[Week 5 →](week5.md)**
 
@@ -9,222 +8,144 @@
 
 ## Overview
 
-Week 4 focuses on implementing the core security controls planned in earlier phases. The primary goal is to harden remote access, restrict network exposure, and enforce least-privilege administration on the Ubuntu Server.
+Week 4 focuses on implementing secure remote administration practices for the Ubuntu Server. Building on the planning work from Weeks 1–3, this week transitions from design to implementation by hardening SSH access, enforcing least-privilege administration, and restricting network access using a firewall.
 
-All configuration and evidence collection are performed remotely via SSH, with no local console access, to reflect real-world server administration practices.
+All configuration and verification tasks are performed remotely via SSH, ensuring the server remains headless and production-aligned.
 
 ---
 
 ## Objectives
 
-* Configure SSH key-based authentication and disable password login
-* Restrict SSH access via firewall rules to the workstation IP only
-* Create a non-root administrative user following least-privilege principles
-* Document configuration changes with before/after evidence
-* Demonstrate secure remote administration via SSH
+* Implement SSH key-based authentication
+* Disable password-based and root SSH access
+* Configure firewall rules to restrict access
+* Create a non-root administrative user
+* Validate secure remote administration
 
 ---
 
 ## Deliverables
 
-* SSH configuration evidence (`sshd_config` before/after)
-* Firewall ruleset verification (`ufw status numbered`)
-* User and privilege setup evidence
-* Proof of remote administration via SSH
-* Screenshot-based evidence for all changes
+* Hardened SSH configuration
+* Non-root administrative user with sudo access
+* Firewall rules enforcing IP-based access control
+* Evidence of secure remote administration
 
 ---
 
-## 1. SSH Key-Based Authentication & Hardening
+## 1. SSH Hardening Implementation
 
-### 1.1 SSH Key Preparation
+### 1.1 SSH Key-Based Authentication
 
-SSH host keys were verified and generated where required:
+Public key authentication was configured to replace password-based access.
 
-```bash
-sudo ssh-keygen -A
-```
+📸 **Screenshot**
+Filename: `week4-authorized-keys.png`
 
-User public keys were installed securely:
+![SSH authorized\_keys setup](../imagescreenshots/week4/week4-authorized-keys.png)
 
-```bash
-mkdir -p ~/.ssh
-chmod 700 ~/.ssh
-nano ~/.ssh/authorized_keys
-chmod 600 ~/.ssh/authorized_keys
-```
-
-📸 **Screenshot to capture**
-**Filename:** `week4-authorized-keys.png`
-
-```md
-![Authorized Keys Setup](../assets/screenshots/week4/week4-authorized-keys.png)
-**Figure W4-1:** SSH public key installed in authorized_keys with correct permissions.
-```
+**Figure W4-1:** SSH `authorized_keys` configured for key-based authentication.
 
 ---
 
 ### 1.2 SSH Daemon Hardening
 
-The SSH daemon configuration was edited to enforce key-based authentication and restrict access:
+The SSH daemon was hardened to eliminate insecure access methods.
 
-```bash
-sudoedit /etc/ssh/sshd_config
-```
+Key changes include:
 
-**Key security settings applied:**
+* Root login disabled
+* Password authentication disabled
+* Key-based authentication enforced
 
-```text
-PermitRootLogin no
-PasswordAuthentication no
-PubkeyAuthentication yes
-AllowUsers <admin>
-X11Forwarding no
-```
+📸 **Screenshot**
+Filename: `week4-sshd-status.png`
 
-SSH service reloaded to apply changes:
+![SSHD service status](../imagescreenshots/week4/week4-sshd-status.png)
 
-```bash
-sudo systemctl restart sshd
-sudo systemctl status sshd
-```
-
-📸 **Screenshot to capture**
-**Filename:** `week4-sshd-status.png`
-
-```md
-![SSHD Status](../assets/screenshots/week4/week4-sshd-status.png)
-**Figure W4-2:** SSH daemon running after hardening configuration.
-```
+**Figure W4-2:** SSH daemon running successfully after hardening.
 
 ---
 
-### 1.3 SSH Configuration Evidence
+### 1.3 SSH Configuration Validation
 
-Before and after configurations were captured and compared:
+A before-and-after comparison was used to verify configuration changes.
 
-```bash
-diff -u sshd_config.before sshd_config.after
-```
+📸 **Screenshot**
+Filename: `week4-sshd-diff.png`
 
-📸 **Screenshot to capture**
-**Filename:** `week4-sshd-diff.png`
+![SSHD configuration diff](../imagescreenshots/week4/week4-sshd-diff.png)
 
-```md
-![SSHD Configuration Diff](../assets/screenshots/week4/week4-sshd-diff.png)
-**Figure W4-3:** Before/after comparison of SSH daemon configuration.
-```
+**Figure W4-3:** Diff output showing secure SSH configuration changes.
 
 ---
 
 ## 2. Firewall Configuration (UFW)
 
-### 2.1 Firewall Policy
+A strict firewall policy was implemented using UFW to minimise the exposed attack surface.
 
-A default-deny posture was implemented:
+Firewall strategy:
 
-```bash
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-```
+* Default deny incoming traffic
+* Allow SSH only from the trusted workstation IP
+* Enable firewall after rule verification
 
-SSH access restricted to workstation IP only:
+📸 **Screenshot**
+Filename: `week4-ufw-status.png`
 
-```bash
-sudo ufw allow from 192.168.56.102 to any port 22 proto tcp
-```
+![UFW status](../imagescreenshots/week4/week4-ufw-status.png)
 
-Firewall enabled and verified:
-
-```bash
-sudo ufw enable
-sudo ufw status numbered
-```
-
-📸 **Screenshot to capture**
-**Filename:** `week4-ufw-status.png`
-
-```md
-![UFW Ruleset](../assets/screenshots/week4/week4-ufw-status.png)
-**Figure W4-4:** UFW ruleset showing SSH restricted to workstation IP only.
-```
+**Figure W4-4:** UFW rules restricting SSH access to a single trusted IP.
 
 ---
 
-## 3. Non-Root Administrative User Setup
+## 3. User & Privilege Management
 
-### 3.1 User Creation
+### 3.1 Non-Root Administrative User
 
-A dedicated non-root administrative user was created:
+A dedicated non-root administrative user was created to support least-privilege access.
 
-```bash
-sudo adduser <admin>
-```
+📸 **Screenshot**
+Filename: `week4-user-creation.png`
 
-The user was granted sudo privileges:
+![User creation](../imagescreenshots/week4/week4-user-creation.png)
 
-```bash
-sudo usermod -aG sudo <admin>
-```
-
-📸 **Screenshot to capture**
-**Filename:** `week4-user-creation.png`
-
-```md
-![Admin User Creation](../assets/screenshots/week4/week4-user-creation.png)
-**Figure W4-5:** Creation of non-root administrative user.
-```
+**Figure W4-5:** Creation of a non-root administrative user.
 
 ---
 
 ### 3.2 Sudo Configuration
 
-Least-privilege sudo access was configured using a drop-in file:
+Sudo access was configured to allow administrative tasks without enabling passwordless or root login.
 
-```bash
-sudo visudo -f /etc/sudoers.d/<admin>
-```
+📸 **Screenshot**
+Filename: `week4-sudoers-config.png`
 
-**Key considerations:**
+![Sudoers configuration](../imagescreenshots/week4/week4-sudoers-config.png)
 
-* Passwordless sudo disabled
-* No unrestricted root shell access
-* Configuration validated with `visudo`
-
-📸 **Screenshot to capture**
-**Filename:** `week4-sudoers-config.png`
-
-```md
-![Sudoers Configuration](../assets/screenshots/week4/week4-sudoers-config.png)
-**Figure W4-6:** Custom sudoers configuration enforcing least privilege.
-```
+**Figure W4-6:** Least-privilege sudo configuration.
 
 ---
 
-## 4. Remote Administration Evidence
+## 4. Secure Remote Administration Validation
 
-All administration was performed remotely via SSH from the workstation.
+Secure administration was validated by performing all management tasks remotely using SSH with the hardened configuration.
 
-Verification commands executed:
+📸 **Screenshot**
+Filename: `week4-remote-admin.png`
 
-```bash
-whoami
-hostname
-ip addr
-```
+![Secure remote administration](../imagescreenshots/week4/week4-remote-admin.png)
 
-📸 **Screenshot to capture**
-**Filename:** `week4-remote-admin.png`
+**Figure W4-7:** Successful secure remote administration using SSH keys and non-root user.
 
-```md
-![Remote Administration](../assets/screenshots/week4/week4-remote-admin.png)
-**Figure W4-7:** Secure remote administration using non-root user and sudo.
-```
+---
 
-Evidence confirms:
+## Evidence Summary
 
-* Login as non-root admin user
-* Successful privilege escalation via sudo
+* Successful SSH login using key-based authentication
+* Root login fully disabled
+* Firewall restricts access to a trusted IP only
+* Non-root user performing administrative tasks via sudo
 * No local console usage
 
 ---
@@ -238,17 +159,23 @@ Evidence confirms:
 * Root login disabled, improving accountability
 * Firewall restricts access to a single trusted IP
 
+---
+
 ### Challenges & Risk Mitigation
 
 * SSH lockout risk mitigated by keeping an active session open
 * Firewall rules tested before enforcement
 * SSH service status verified before disconnecting
 
+---
+
 ### Design Justification
 
 * IP-based firewall restrictions minimise exposure
 * SSH key authentication provides strong cryptographic security
 * Non-root administration improves auditability and containment
+
+---
 
 ### Comparison to Week 1
 
@@ -258,18 +185,6 @@ Evidence confirms:
 | Root Login | Enabled      | Disabled         |
 | Firewall   | Not enforced | Strict allowlist |
 | Privileges | Root-centric | Least privilege  |
-
----
-
-## Image Caption Reference (Quick Copy)
-
-* **Figure W4-1:** SSH authorized_keys setup
-* **Figure W4-2:** SSH daemon running after hardening
-* **Figure W4-3:** SSH configuration before/after diff
-* **Figure W4-4:** UFW rules restricting SSH access
-* **Figure W4-5:** Non-root admin user creation
-* **Figure W4-6:** Sudoers least-privilege configuration
-* **Figure W4-7:** Secure remote administration evidence
 
 ---
 
@@ -283,7 +198,3 @@ Evidence confirms:
 ---
 
 **[← Week 3](week3.md)** | **Week 4** | **[Week 5 →](week5.md)**
-
-
-Just tell me 👍
-
