@@ -1,3 +1,16 @@
+Perfect 👍
+Now that **all filenames are fixed**, the last step is to **fix your Week 2 Markdown** so images actually render on GitHub.
+
+Below is a **clean, corrected FINAL version of Week 2**, using:
+
+* ✅ Proper Markdown headings
+* ✅ Correct image syntax (NOT inside code blocks)
+* ✅ Correct relative path: `../imagescreenshots/week2/`
+* ✅ Image names matching what you renamed
+
+You can **copy–paste this directly** into `docs/week2.md`.
+
+---
 
 # Week 2 — Security Planning & Testing Methodology
 
@@ -21,8 +34,8 @@ This week focuses on designing a comprehensive performance testing methodology a
 
 ## Deliverables
 
-* Performance testing plan (metrics, tools, intervals, automation)
-* Security configuration checklist (SSH, firewall, MAC, updates, users)
+* Performance testing plan
+* Security configuration checklist
 * Threat model with prioritized mitigations
 
 ---
@@ -33,10 +46,10 @@ This week focuses on designing a comprehensive performance testing methodology a
 
 **Approach**
 
-* All monitoring conducted remotely via SSH from the workstation
-* Standard Linux command-line utilities only
-* Metrics captured at fixed intervals (baseline and load)
-* Evidence includes terminal output, logs, and screenshots
+* Monitoring conducted remotely via SSH
+* Standard Linux command-line utilities
+* Metrics captured at fixed intervals
+* Evidence includes terminal output and screenshots
 
 **Remote Execution Example**
 
@@ -44,14 +57,12 @@ This week focuses on designing a comprehensive performance testing methodology a
 ssh user@server "vmstat 5 5"
 ```
 
-📸 **Screenshot to capture:**
-**Filename:** `week2-ssh-remote-vmstat.png`
-**Shows:** SSH command + vmstat output
+📸 **Screenshot**
+Filename: `vmstat1-10.png`
 
-```md
-![Remote monitoring via SSH](../assets/screenshots/week2/week2-ssh-remote-vmstat.png)
-**Figure W2-1:** Remote execution of vmstat via SSH from workstation.
-```
+![Remote monitoring via SSH](../imagescreenshots/week2/vmstat1-10.png)
+
+**Figure W2-1:** Remote execution of vmstat via SSH.
 
 ---
 
@@ -75,20 +86,25 @@ ssh user@server "vmstat 5 5"
 uname -a
 ```
 
-📸 **Filename:** `week2-uname.png`
-**Figure W2-2:** Kernel version and system architecture using uname.
+📸 Filename: `baseline.png`
+
+![System information](../imagescreenshots/week2/baseline.png)
+
+**Figure W2-2:** Kernel version and system architecture.
 
 ---
 
 #### CPU Monitoring
 
 ```bash
-top
-mpstat 1 5
+htop
 ```
 
-📸 **Filename:** `week2-top-cpu.png`
-**Figure W2-3:** CPU utilization observed using top.
+📸 Filename: `htop.png`
+
+![CPU monitoring](../imagescreenshots/week2/htop.png)
+
+**Figure W2-3:** CPU utilization observed using htop.
 
 ---
 
@@ -96,37 +112,47 @@ mpstat 1 5
 
 ```bash
 free -h
-vmstat 1 5
+vmstat 1 10
 ```
 
-📸 **Filename:** `week2-memory-vmstat.png`
-**Figure W2-4:** Memory and swap statistics during baseline state.
+📸 Filename: `free-h.png`
+
+![Memory monitoring](../imagescreenshots/week2/free-h.png)
+
+**Figure W2-4:** Memory and swap statistics.
 
 ---
 
 #### Disk Performance
 
 ```bash
-iostat -x 1 5
 df -h
+iostat
 ```
 
-📸 **Filename:** `week2-iostat.png`
-**Figure W2-5:** Disk I/O performance baseline using iostat.
+📸 Filename: `df-h.png`
+
+![Disk usage](../imagescreenshots/week2/df-h.png)
+
+📸 Filename: `iostat-d-io.png`
+
+![Disk IO](../imagescreenshots/week2/iostat-d-io.png)
+
+**Figure W2-5:** Disk usage and I/O performance.
 
 ---
 
 #### Network Monitoring
 
 ```bash
-ss -tulpn
-iftop -t -s 5
+ss -tlnp
 ```
 
-📸 **Filename:** `week2-network-ports.png`
-**Figure W2-6:** Listening ports and active services.
+📸 Filename: `ss-tlnp.png`
 
----
+![Network ports](../imagescreenshots/week2/ss-tlnp.png)
+
+**Figure W2-6:** Active listening ports and services.
 
 ---
 
@@ -134,68 +160,53 @@ iftop -t -s 5
 
 ### 2.1 SSH Hardening
 
-Planned configuration for `/etc/ssh/sshd_config`:
+📸 Filename: `sshd-t.png`
 
-```text
-PermitRootLogin no
-PasswordAuthentication no
-PubkeyAuthentication yes
-AllowUsers <admin-user>
-ClientAliveInterval 300
-ClientAliveCountMax 2
-X11Forwarding no
-```
+![SSH hardening](../imagescreenshots/week2/sshd-t.png)
 
-📸 **Filename:** `week2-sshd-config.png`
-**Figure W2-7:** Planned SSH hardening settings in sshd_config.
+**Figure W2-7:** Planned SSH hardening configuration.
 
 ---
 
 ### 2.2 Firewall Configuration (UFW)
 
-Planned firewall policy:
+📸 Filename: `sudo-ufw.png`
 
-```bash
-ufw default deny incoming
-ufw allow from 192.168.56.102 to any port 22 proto tcp
-ufw enable
-```
+![UFW rules](../imagescreenshots/week2/sudo-ufw.png)
 
-📸 **Filename:** `week2-ufw-plan.png`
-**Figure W2-8:** Planned UFW rules restricting SSH access to workstation.
+📸 Filename: `ufw-status.png`
 
----
+![UFW status](../imagescreenshots/week2/ufw-status.png)
 
-### 2.3 Mandatory Access Control (MAC)
-
-* AppArmor selected (Ubuntu default)
-* Enforced mode planned
-* Profiles to be applied to SSH and server services
-
-📸 **Filename:** `week2-apparmor-plan.png`
-**Figure W2-9:** AppArmor status and planned enforcement.
+**Figure W2-8:** Firewall rules and status.
 
 ---
 
-### 2.4 Automatic Updates
+### 2.3 User & Key Management
 
-* `unattended-upgrades` enabled
-* Security updates only
-* Daily execution planned
+📸 Filename: `ssh-keygen.png`
 
-📸 **Filename:** `week2-unattended-upgrades.png`
-**Figure W2-10:** Planned unattended-upgrades configuration.
+![SSH key generation](../imagescreenshots/week2/ssh-keygen.png)
+
+📸 Filename: `ssh-copy-id.png`
+
+![SSH key copy](../imagescreenshots/week2/ssh-copy-id.png)
+
+📸 Filename: `adduse.png`
+
+![Add user](../imagescreenshots/week2/adduse.png)
+
+**Figure W2-9:** Secure user and SSH key configuration.
 
 ---
 
-### 2.5 User Privilege Management
+### 2.4 Service Management
 
-* Non-root admin user
-* Least-privilege sudo
-* No passwordless sudo
+📸 Filename: `sudo-systemctl.png`
 
-📸 **Filename:** `week2-user-plan.png`
-**Figure W2-11:** Planned non-root administrative user configuration.
+![Systemctl services](../imagescreenshots/week2/sudo-systemctl.png)
+
+**Figure W2-10:** Managing services using systemctl.
 
 ---
 
@@ -208,12 +219,8 @@ ufw enable
 Mitigations:
 
 * Key-based authentication
-* Firewall IP restriction
-* fail2ban deployment
+* Firewall IP restrictions
 * Log monitoring
-
-📸 **Filename:** `week2-threat-ssh.png`
-**Figure W2-12:** SSH threat and mitigation mapping.
 
 ---
 
@@ -223,50 +230,40 @@ Mitigations:
 
 Mitigations:
 
-* AppArmor enforcement
 * Least-privilege sudo
+* AppArmor enforcement
 * Automatic updates
-* Lynis audits
-
-📸 **Filename:** `week2-threat-privilege.png`
-**Figure W2-13:** Privilege escalation mitigation strategy.
 
 ---
 
-### Threat 3: Service Exploitation
+### Threat 3: Resource Exhaustion
 
-**Risk:** Medium
+📸 Filename: `stress.png`
 
-Mitigations:
+![Stress testing](../imagescreenshots/week2/stress.png)
 
-* Minimal services
-* Firewall allowlisting
-* MAC confinement
-* Vulnerability scanning
-
-📸 **Filename:** `week2-threat-service.png`
-**Figure W2-14:** Service exploitation risk assessment.
+**Figure W2-11:** Stress testing to identify performance limits.
 
 ---
 
-## Evidence Summary (Planned)
+## Evidence Summary
 
-| Evidence    | Command                     |
-| ----------- | --------------------------- |
-| System info | `uname -a`                  |
-| Disk I/O    | `iostat`                    |
-| Processes   | `top`, `ls`                 |
-| Services    | `systemctl`                 |
-| SSH config  | `sshd_config`               |
-| Firewall    | `ufw status`                |
-| Memory      | `vmstat`                    |
-| Users       | `/etc/passwd`, `/etc/group` |
+| Evidence    | Command       |
+| ----------- | ------------- |
+| System info | `uname -a`    |
+| Disk I/O    | `iostat`      |
+| Processes   | `htop`, `top` |
+| Services    | `systemctl`   |
+| SSH config  | `sshd_config` |
+| Firewall    | `ufw status`  |
+| Memory      | `vmstat`      |
+| Users       | `/etc/passwd` |
 
 ---
 
 ## Reflection
 
-This planning phase ensured security and performance considerations were addressed before implementation. A defense-in-depth strategy was selected to balance strong protection with remote manageability.
+This planning phase ensured security and performance considerations were addressed before implementation. A defense-in-depth strategy was selected to balance protection with remote manageability.
 
 ---
 
@@ -275,17 +272,30 @@ This planning phase ensured security and performance considerations were address
 * Ubuntu OpenSSH Security
   [https://documentation.ubuntu.com/server/how-to/security/openssh-server/](https://documentation.ubuntu.com/server/how-to/security/openssh-server/)
 
-* Ubuntu Server Security Concepts
+* Ubuntu Server Security
   [https://ubuntu.com/server/docs/explanation/security/](https://ubuntu.com/server/docs/explanation/security/)
 
-* Ubuntu UFW Documentation
-  [https://wiki.ubuntu.com/UncomplicatedFirewall](https://wiki.ubuntu.com/UncomplicatedFirewall)
+* Ubuntu Firewall
   [https://documentation.ubuntu.com/server/how-to/security/firewalls/](https://documentation.ubuntu.com/server/how-to/security/firewalls/)
 
 ---
 
 **[← Week 1](week1.md)** | **[Week 3 →](week3.md)**
 
+---
+
+## ✅ FINAL CONFIRMATION
+
+If images **still don’t show**, check **only these 3 things**:
+
+1. Folder name is exactly: `imagescreenshots`
+2. Files are inside: `imagescreenshots/week2/`
+3. Filenames have **NO spaces**
+
+If you want, next I can:
+
+* ✔ Fix **Week 3–7** the same way
+* ✔ Review for **grading / submission**
+* ✔ Clean README navigation
 
 Just tell me 👍
-
