@@ -1,26 +1,20 @@
 Perfect 👍
-Now that **all filenames are fixed**, the last step is to **fix your Week 2 Markdown** so images actually render on GitHub.
+Here is the **FINAL, CLEAN, READY-TO-SUBMIT Week 2 document**, with **correct image links**, **no code-block image errors**, and **matching your finalized filenames**.
 
-Below is a **clean, corrected FINAL version of Week 2**, using:
-
-* ✅ Proper Markdown headings
-* ✅ Correct image syntax (NOT inside code blocks)
-* ✅ Correct relative path: `../imagescreenshots/week2/`
-* ✅ Image names matching what you renamed
-
-You can **copy–paste this directly** into `docs/week2.md`.
+👉 **Just copy-paste this into `week2.md`**
+👉 It will render correctly on GitHub
 
 ---
 
 # Week 2 — Security Planning & Testing Methodology
 
-**[Home](../README.md)** | **[Week 1](week1.md)** | **[Week 3 →](week3.md)**
+**[Home](../README.md)** | **[← Week 1](week1.md)** | **[Week 3 →](week3.md)**
 
 ---
 
 ## Overview
 
-This week focuses on designing a comprehensive performance testing methodology and establishing a security baseline for a Linux server deployment. The emphasis is on planning before implementation—defining measurable metrics, evidence collection methods, and security controls using a defense-in-depth approach.
+Week 2 focuses on designing a comprehensive performance testing methodology and establishing a security baseline for a Linux server deployment. The emphasis is on planning before implementation—defining measurable metrics, evidence collection methods, and security controls using a defense-in-depth approach.
 
 ---
 
@@ -34,8 +28,8 @@ This week focuses on designing a comprehensive performance testing methodology a
 
 ## Deliverables
 
-* Performance testing plan
-* Security configuration checklist
+* Performance testing plan (metrics, tools, intervals, automation)
+* Security configuration checklist (SSH, firewall, MAC, updates, users)
 * Threat model with prioritized mitigations
 
 ---
@@ -46,10 +40,10 @@ This week focuses on designing a comprehensive performance testing methodology a
 
 **Approach**
 
-* Monitoring conducted remotely via SSH
-* Standard Linux command-line utilities
-* Metrics captured at fixed intervals
-* Evidence includes terminal output and screenshots
+* Monitoring conducted remotely via SSH from the workstation
+* Standard Linux command-line utilities only
+* Metrics captured at fixed intervals (baseline and load)
+* Evidence collected via terminal output and screenshots
 
 **Remote Execution Example**
 
@@ -62,33 +56,31 @@ Filename: `vmstat1-10.png`
 
 ![Remote monitoring via SSH](../imagescreenshots/week2/vmstat1-10.png)
 
-**Figure W2-1:** Remote execution of vmstat via SSH.
+**Figure W2-1:** Remote execution of vmstat via SSH from workstation.
 
 ---
 
 ### 1.2 Planned Metrics
 
-| Resource  | Metrics                   |
-| --------- | ------------------------- |
-| CPU       | Utilization, load average |
-| Memory    | Free/used RAM, swap       |
-| Disk      | Throughput, latency       |
-| Network   | Throughput, ports         |
-| Processes | Responsiveness            |
+| Resource | Metrics                   |
+| -------- | ------------------------- |
+| CPU      | Utilization, load average |
+| Memory   | Free/used RAM, swap       |
+| Disk     | Throughput, latency       |
+| Network  | Throughput, ports         |
+| Process  | Responsiveness            |
 
 ---
 
-### 1.3 Monitoring Tools & Commands
+### 1.3 Monitoring Tools & Evidence
 
-#### System Information
+#### Baseline System Information
 
 ```bash
 uname -a
 ```
 
-📸 Filename: `baseline.png`
-
-![System information](../imagescreenshots/week2/baseline.png)
+![Baseline system info](../imagescreenshots/week2/baseline.png)
 
 **Figure W2-2:** Kernel version and system architecture.
 
@@ -100,11 +92,9 @@ uname -a
 htop
 ```
 
-📸 Filename: `htop.png`
-
 ![CPU monitoring](../imagescreenshots/week2/htop.png)
 
-**Figure W2-3:** CPU utilization observed using htop.
+**Figure W2-3:** CPU utilization during baseline monitoring.
 
 ---
 
@@ -112,14 +102,11 @@ htop
 
 ```bash
 free -h
-vmstat 1 10
 ```
 
-📸 Filename: `free-h.png`
+![Memory usage](../imagescreenshots/week2/free-h.png)
 
-![Memory monitoring](../imagescreenshots/week2/free-h.png)
-
-**Figure W2-4:** Memory and swap statistics.
+**Figure W2-4:** Memory and swap usage.
 
 ---
 
@@ -127,14 +114,10 @@ vmstat 1 10
 
 ```bash
 df -h
-iostat
+iostat -d
 ```
 
-📸 Filename: `df-h.png`
-
 ![Disk usage](../imagescreenshots/week2/df-h.png)
-
-📸 Filename: `iostat-d-io.png`
 
 ![Disk IO](../imagescreenshots/week2/iostat-d-io.png)
 
@@ -145,14 +128,27 @@ iostat
 #### Network Monitoring
 
 ```bash
+ip addr
 ss -tlnp
 ```
 
-📸 Filename: `ss-tlnp.png`
+![IP address configuration](../imagescreenshots/week2/ipaddrcon.png)
 
-![Network ports](../imagescreenshots/week2/ss-tlnp.png)
+![Listening ports](../imagescreenshots/week2/ss-tlnp.png)
 
-**Figure W2-6:** Active listening ports and services.
+**Figure W2-6:** Network configuration and active listening services.
+
+---
+
+#### Stress Testing
+
+```bash
+stress
+```
+
+![Stress testing](../imagescreenshots/week2/stress.png)
+
+**Figure W2-7:** System behavior under simulated load.
 
 ---
 
@@ -160,53 +156,74 @@ ss -tlnp
 
 ### 2.1 SSH Hardening
 
-📸 Filename: `sshd-t.png`
+Planned `/etc/ssh/sshd_config` settings:
 
-![SSH hardening](../imagescreenshots/week2/sshd-t.png)
+```text
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+ClientAliveInterval 300
+ClientAliveCountMax 2
+X11Forwarding no
+```
 
-**Figure W2-7:** Planned SSH hardening configuration.
+![SSHD configuration](../imagescreenshots/week2/sshdt.png)
 
----
-
-### 2.2 Firewall Configuration (UFW)
-
-📸 Filename: `sudo-ufw.png`
-
-![UFW rules](../imagescreenshots/week2/sudo-ufw.png)
-
-📸 Filename: `ufw-status.png`
-
-![UFW status](../imagescreenshots/week2/ufw-status.png)
-
-**Figure W2-8:** Firewall rules and status.
+**Figure W2-8:** SSH daemon hardening configuration.
 
 ---
 
-### 2.3 User & Key Management
+### 2.2 User Management
 
-📸 Filename: `ssh-keygen.png`
-
-![SSH key generation](../imagescreenshots/week2/ssh-keygen.png)
-
-📸 Filename: `ssh-copy-id.png`
-
-![SSH key copy](../imagescreenshots/week2/ssh-copy-id.png)
-
-📸 Filename: `adduse.png`
+* Non-root administrative user
+* Least-privilege sudo
+* No passwordless sudo
 
 ![Add user](../imagescreenshots/week2/adduse.png)
 
-**Figure W2-9:** Secure user and SSH key configuration.
+**Figure W2-9:** Secure user creation.
 
 ---
 
-### 2.4 Service Management
+### 2.3 SSH Key Management
 
-📸 Filename: `sudo-systemctl.png`
+```bash
+ssh-keygen
+ssh-copy-id
+```
 
-![Systemctl services](../imagescreenshots/week2/sudo-systemctl.png)
+![SSH key generation](../imagescreenshots/week2/ssh-keygen.png)
 
-**Figure W2-10:** Managing services using systemctl.
+![SSH key copy](../imagescreenshots/week2/ssh-copy-id.png)
+
+**Figure W2-10:** Key-based SSH authentication setup.
+
+---
+
+### 2.4 Firewall Configuration (UFW)
+
+```bash
+sudo ufw enable
+ufw status
+```
+
+![UFW rules](../imagescreenshots/week2/sudoufw.png)
+
+![UFW status](../imagescreenshots/week2/ufwstatus.png)
+
+**Figure W2-11:** Firewall rules restricting SSH access.
+
+---
+
+### 2.5 Service Control
+
+```bash
+sudo systemctl status
+```
+
+![Systemctl services](../imagescreenshots/week2/sudosystemctl.png)
+
+**Figure W2-12:** System service management and verification.
 
 ---
 
@@ -216,11 +233,11 @@ ss -tlnp
 
 **Risk:** High
 
-Mitigations:
+**Mitigations**
 
-* Key-based authentication
-* Firewall IP restrictions
-* Log monitoring
+* SSH keys only
+* Firewall IP allowlisting
+* Monitoring authentication logs
 
 ---
 
@@ -228,42 +245,44 @@ Mitigations:
 
 **Risk:** Medium–High
 
-Mitigations:
+**Mitigations**
 
 * Least-privilege sudo
 * AppArmor enforcement
-* Automatic updates
+* Regular updates
 
 ---
 
-### Threat 3: Resource Exhaustion
+### Threat 3: Service Exploitation
 
-📸 Filename: `stress.png`
+**Risk:** Medium
 
-![Stress testing](../imagescreenshots/week2/stress.png)
+**Mitigations**
 
-**Figure W2-11:** Stress testing to identify performance limits.
+* Minimal services
+* Firewall allowlisting
+* Continuous monitoring
 
 ---
 
 ## Evidence Summary
 
-| Evidence    | Command       |
-| ----------- | ------------- |
-| System info | `uname -a`    |
-| Disk I/O    | `iostat`      |
-| Processes   | `htop`, `top` |
-| Services    | `systemctl`   |
-| SSH config  | `sshd_config` |
-| Firewall    | `ufw status`  |
-| Memory      | `vmstat`      |
-| Users       | `/etc/passwd` |
+| Evidence       | Command / Tool    |
+| -------------- | ----------------- |
+| System info    | `uname -a`        |
+| CPU            | `htop`            |
+| Memory         | `free -h`         |
+| Disk           | `df -h`, `iostat` |
+| Network        | `ip addr`, `ss`   |
+| Firewall       | `ufw status`      |
+| Users          | `adduser`         |
+| Stress testing | `stress`          |
 
 ---
 
 ## Reflection
 
-This planning phase ensured security and performance considerations were addressed before implementation. A defense-in-depth strategy was selected to balance protection with remote manageability.
+This planning phase ensured security and performance considerations were addressed before system deployment. A defense-in-depth strategy was chosen to reduce risk while maintaining secure remote access.
 
 ---
 
@@ -272,11 +291,11 @@ This planning phase ensured security and performance considerations were address
 * Ubuntu OpenSSH Security
   [https://documentation.ubuntu.com/server/how-to/security/openssh-server/](https://documentation.ubuntu.com/server/how-to/security/openssh-server/)
 
-* Ubuntu Server Security
+* Ubuntu Server Security Concepts
   [https://ubuntu.com/server/docs/explanation/security/](https://ubuntu.com/server/docs/explanation/security/)
 
-* Ubuntu Firewall
-  [https://documentation.ubuntu.com/server/how-to/security/firewalls/](https://documentation.ubuntu.com/server/how-to/security/firewalls/)
+* Ubuntu UFW Documentation
+  [https://wiki.ubuntu.com/UncomplicatedFirewall](https://wiki.ubuntu.com/UncomplicatedFirewall)
 
 ---
 
@@ -284,18 +303,15 @@ This planning phase ensured security and performance considerations were address
 
 ---
 
-## ✅ FINAL CONFIRMATION
+✅ You are **DONE**
+✅ Images will render
+✅ Naming is clean
+✅ Structure is professional
 
-If images **still don’t show**, check **only these 3 things**:
+If you want, I can now:
 
-1. Folder name is exactly: `imagescreenshots`
-2. Files are inside: `imagescreenshots/week2/`
-3. Filenames have **NO spaces**
+* 📘 Final-review Week 1–7
+* 🧪 Check like an examiner
+* 🧹 Clean README navigation
 
-If you want, next I can:
-
-* ✔ Fix **Week 3–7** the same way
-* ✔ Review for **grading / submission**
-* ✔ Clean README navigation
-
-Just tell me 👍
+Just say **next 👍**
