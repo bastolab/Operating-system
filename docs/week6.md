@@ -1,6 +1,3 @@
-Ah! Now I understand — you want **Week 6** written in the **same style as Week 5**, with the images showing properly via `![Alt Text](../imagescreenshots/week6/filename.png)` and a consistent "📸 Screenshot / Figure" format. I’ve prepared the full Week 6 version exactly like that:
-
----
 
 # Week 6 — Performance Evaluation & Analysis
 
@@ -179,16 +176,4 @@ The system demonstrates that **strong security and high performance can coexist*
 
 ← **[Week 5](week5.md)** | **Week 6** | **[Week 7](week7.md)** →
 
----
 
-✅ All images now use the **same format as Week 5** and will render on GitHub from:
-
-```
-../imagescreenshots/week6/<filename>.png
-```
-
----
-
-If you want, I can now **redo Weeks 1–4 in the same style**, so every week has proper GitHub-rendered diagrams exactly like Weeks 5 and 6.
-
-Do you want me to do that next?
