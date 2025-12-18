@@ -49,6 +49,10 @@ Filename: `w7-fig1-lynis-audit.png`
 
 ![w7-fig1-lynis-audit](imagescreenshots/week7/w7-fig1-lynis-audit.png)
 
+
+
+
+
 **Figure W7-1:** Lynis hardening score after remediation.
 
 **Key Improvements Identified:**
