@@ -1,23 +1,19 @@
-Perfect! I’ll create a **final GitHub-ready Markdown report** using the correct folder structure:
+Absolutely! I can rewrite your **Week 7 Markdown report** in the **same format** as your Week 6 report — with clear sections, screenshots, and “Filename” references — so it looks consistent and professional for GitHub.
 
-```
-images/screenshots/week7/
-```
-
-and your exact image filenames. You can copy-paste this directly, and it will display properly on GitHub.
+Here’s the Week 7 report in the requested format:
 
 ---
 
 # Week 7 — Security Audit & System Evaluation
 
-← **[Week 6](week6.md)** | **Week 7 (Final)**
+**[← Week 6](week6.md)** | **Week 7** | **[End →](README.md)**
 
 ---
 
 ## Overview
 
-This final week conducts a comprehensive **security audit and system evaluation** of the Ubuntu Server configured throughout Weeks 2–6.
-The objective is to validate the effectiveness of implemented controls, quantify security improvements using industry-standard tools, and present a **final risk-based assessment** balancing security, performance, and usability.
+Week 7 conducts a comprehensive **security audit and system evaluation** of the Ubuntu Server configured throughout Weeks 2–6.
+The goal is to validate implemented security controls, quantify improvements using industry-standard tools, and provide a **final risk-based assessment** balancing security, performance, and usability.
 
 Auditing is performed using **Lynis**, **Nmap**, and direct verification of access controls, running services, and Mandatory Access Control (MAC) enforcement. Results are compared against earlier system states to demonstrate **measurable improvement**.
 
@@ -25,9 +21,9 @@ Auditing is performed using **Lynis**, **Nmap**, and direct verification of acce
 
 ## Objectives
 
-* Perform a full system security audit (Lynis, Nmap, access control checks)
+* Perform a full system security audit (Lynis, Nmap, SSH, sudo, MAC)
 * Compare Lynis hardening scores before and after remediation
-* Validate SSH, sudo, firewall, and MAC enforcement
+* Verify network exposure and service minimisation
 * Inventory running services and justify their necessity
 * Produce a final risk assessment and system evaluation
 
@@ -36,7 +32,7 @@ Auditing is performed using **Lynis**, **Nmap**, and direct verification of acce
 ## Deliverables
 
 * 📄 Security audit summary with evidence
-* 📊 Lynis audit results and score trend
+* 📊 Lynis audit results and hardening score trends
 * 🌐 Network exposure analysis (Nmap)
 * 🔐 Access control verification (SSH, sudo, MAC)
 * 📋 Service inventory with justification
@@ -44,128 +40,98 @@ Auditing is performed using **Lynis**, **Nmap**, and direct verification of acce
 
 ---
 
-## Security Audit Methodology
+## 1. Lynis Security Audit
 
-### Tools Used
+Security audit performed using **Lynis** to assess system hardening and compliance.
 
-| Tool                 | Purpose                                        |
-| -------------------- | ---------------------------------------------- |
-| **Lynis**            | Host-based security audit & hardening analysis |
-| **Nmap**             | Network exposure and service fingerprinting    |
-| **System Utilities** | SSH, firewall, sudo, and MAC verification      |
+📸 **Screenshot**
+Filename: `w7-fig1-lynis-audit.png`
 
-All audits were conducted **non-disruptively** and remotely via SSH.
+![Lynis audit](images/screenshots/week7/w7-fig1-lynis-audit.png)
 
----
+**Figure W7-1:** Lynis hardening score after remediation.
 
-## Lynis Security Audit
+**Key Improvements Identified:**
 
-### Audit Execution (Server)
-
-```bash
-sudo lynis audit system --quiet --logfile /var/log/lynis.log
-```
-
-Key findings extracted using:
-
-```bash
-grep -E "hardening_index|warning|suggestion" /var/log/lynis.log
-```
-
----
-
-### Lynis Results Summary
-
-| Metric                   | Result                           |
-| ------------------------ | -------------------------------- |
-| Hardening Index (Before) | Documented during early baseline |
-| Hardening Index (After)  | Increased following remediation  |
-
-**Key Improvements Identified by Lynis:**
-
-* SSH hardening (key-based auth, root login disabled)
+* SSH hardening (key-based authentication, root login disabled)
 * Firewall default-deny configuration
 * fail2ban protection enabled
 * Automatic security updates active
-* MAC enforcement (AppArmor)
-
-**Figure W7-1: Lynis hardening score after remediation**
-
-![w7-fig1-lynis-audit](images/screenshots/week7/w7-fig1-lynis-audit.png)
-
-Audit logs stored in:
-
-```text
-data/audit/
-```
+* AppArmor enforced
 
 ---
 
-## Network Security Testing (Nmap)
+## 2. Network Security Testing (Nmap)
 
-### Scan Execution (Workstation Only)
+Network scanning performed using **Nmap** to verify exposed services.
 
-```bash
-nmap -sV -Pn 192.168.56.10
-```
+📸 **Screenshot**
+Filename: `w7-fig3-nmap-scan.png`
 
-**Figure W7-2: Nmap service scan from trusted workstation**
+![Nmap scan](images/screenshots/week7/w7-fig3-nmap-scan.png)
 
-![w7-fig3-nmap-scan](images/screenshots/week7/w7-fig3-nmap-scan.png)
+**Figure W7-2:** Nmap scan results showing only SSH (port 22) exposed.
 
-### Findings
+**Findings:**
 
-* Only **SSH (port 22)** exposed
+* Only SSH exposed externally
 * No unnecessary services detected
-* Service versions consistent with patched system
-
-This confirms effective firewall allow-listing and service minimisation.
+* Service versions match patched system
 
 ---
 
-## Access Control Verification
+## 3. SSH Access Verification
 
-### SSH Configuration Validation
+SSH configuration verified for secure login and key enforcement.
 
-Confirmed via configuration review and login testing:
+📸 **Screenshot**
+Filename: `w7-fig4-ssh-verification.png`
+
+![SSH verification](images/screenshots/week7/w7-fig4-ssh-verification.png)
+
+**Figure W7-3:** SSH key-based login verified, root login disabled.
+
+**Configuration Summary:**
 
 * Root login disabled
 * Password authentication disabled
 * Key-based authentication enforced
 * Access restricted to approved admin users
 
-**Figure W7-3: SSH login using key-based authentication**
-
-![w7-fig4-ssh-verification](images/screenshots/week7/w7-fig4-ssh-verification.png)
-
 ---
 
-### Sudo & User Privileges
+## 4. Sudo & User Privileges
+
+Administrative privileges verified for compliance with least-privilege principle.
 
 ```bash
 ssh user@server "sudo -l"
 ```
 
+**Figure W7-4:** sudo privilege verification.
+
 * Non-root administrative user enforced
 * Least-privilege sudo configuration
 * No passwordless sudo unless justified
 
-**Figure W7-4: sudo privilege verification**
-
 ---
 
-### Mandatory Access Control (MAC)
+## 5. Mandatory Access Control (MAC)
+
+AppArmor profiles reviewed to confirm MAC enforcement.
 
 ```bash
 ssh user@server "sudo aa-status"
 ```
 
 * AppArmor enabled and enforcing
-* Active profiles loaded for critical services
+* Critical services protected by active profiles
 
 ---
 
-## Service Inventory & Justification
+## 6. Service Inventory & Justification
+
+Running services verified and justified.
 
 ```bash
 ssh user@server "systemctl list-units --type=service --state=running"
@@ -178,11 +144,11 @@ ssh user@server "systemctl list-units --type=service --state=running"
 | fail2ban            | Intrusion prevention  | SSH brute-force protection     |
 | unattended-upgrades | Patch automation      | Reduces vulnerability exposure |
 
-All running services are **documented and justified**. No unnecessary services remain enabled.
+All running services are **documented and justified**.
 
 ---
 
-## Remediation Actions & Impact
+## 7. Remediation Actions & Impact
 
 | Issue Identified         | Action Taken            | Result                 |
 | ------------------------ | ----------------------- | ---------------------- |
@@ -191,11 +157,11 @@ All running services are **documented and justified**. No unnecessary services r
 | Brute-force risk         | fail2ban enabled        | Automated blocking     |
 | Missing patch automation | unattended-upgrades     | Improved patch hygiene |
 
-Each remediation contributed to a **measurable Lynis score increase**.
+Each remediation contributed to a **measurable improvement in Lynis hardening score**.
 
 ---
 
-## Remaining Risks & Mitigation Plan
+## 8. Remaining Risks & Mitigation
 
 | Risk                     | Status    | Rationale                                 |
 | ------------------------ | --------- | ----------------------------------------- |
@@ -207,75 +173,26 @@ All remaining risks are **documented with justification**.
 
 ---
 
-## Final Evaluation
-
-### Security
-
-* Strong layered security baseline
-* External exposure reduced to minimum
-* Continuous monitoring enabled
-
-### Performance
-
-* Security controls introduced negligible overhead
-* Prior optimisations preserved responsiveness
-
-### Usability
-
-* Efficient remote administration
-* Clear privilege separation improves auditability
-
----
-
-## Final Reflection
-
-This project demonstrates a **complete secure Linux system lifecycle**:
-planning → implementation → testing → optimisation → audit
-
-Security improvements were validated quantitatively while maintaining acceptable performance and usability. The final system reflects **real-world production best practices**.
-
----
-
-## Demonstration Preparation
-
-### 8-Minute Video Walkthrough Plan
-
-1. Project overview & architecture
-2. Live SSH login (key-based)
-3. Firewall & fail2ban verification
-4. AppArmor enforcement
-5. Lynis & Nmap key findings
-6. `security-baseline.sh` & monitoring scripts
-7. Lessons learned & trade-offs
-
----
-
-## Key Screenshots
+## Key Screenshots Summary
 
 | Screenshot Filename          | Description                             |
 | ---------------------------- | --------------------------------------- |
 | w7-fig1-lynis-audit.png      | Lynis hardening score after remediation |
-| w7-fig3-nmap-scan.png        | Nmap scan of exposed services           |
+| w7-fig3-nmap-scan.png        | Nmap scan showing exposed services      |
 | w7-fig4-ssh-verification.png | SSH key-based login verification        |
 
 ---
 
 ## Navigation
 
-← **[Week 6](week6.md)** | **Week 7 (Final)**
+**[← Week 6](week6.md)** | **Week 7 (Final)**
 
 ---
 
-✅ Now your Markdown is **ready for GitHub**, with the **correct folder structure**:
-
-```
-images/screenshots/week7/
-```
-
-and **exact filenames**, so all images will render properly.
+✅ This is fully consistent with your Week 6 format, with **filename references and screenshots** ready for GitHub.
 
 ---
 
-If you want, I can also **create a full GitHub README.md** linking all weeks and reports with clickable thumbnails for the images. This makes your repository look professional.
+If you want, I can **also rewrite Week 6 and Week 7 together** in **one consistent GitHub-ready format** with correct paths for all images, so your full repo looks professional and unified.
 
-Do you want me to do that next?
+Do you want me to do that?
