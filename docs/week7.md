@@ -1,6 +1,13 @@
-Ah! I understand now — you want to **keep your current folder structure** (`imagesscreenshots/week7/`) and have a **final Week 7 Markdown** using **your current structure and filenames**, formatted consistently like Week 6. ✅
+Perfect! Now I understand completely — you want to **keep your current folder structure**, like:
 
-Here’s the fully corrected **Week 7 report**, ready for GitHub, using your existing folder `imagesscreenshots/week7/`:
+```
+../imagescreenshots/week6/
+../imagescreenshots/week7/
+```
+
+and reference images **relative to the Markdown file** exactly like that. ✅
+
+Here’s the **final Week 7 report**, formatted like Week 6, using your current paths:
 
 ---
 
@@ -47,11 +54,7 @@ Security audit performed using **Lynis** to assess system hardening and complian
 📸 **Screenshot**
 Filename: `w7-fig1-lynis-audit.png`
 
-![w7-fig1-lynis-audit](imagescreenshots/week7/w7-fig1-lynis-audit.png)
-
-
-
-
+![w7-fig1-lynis-audit](../imagescreenshots/week7/w7-fig1-lynis-audit.png)
 
 **Figure W7-1:** Lynis hardening score after remediation.
 
@@ -72,7 +75,7 @@ Network scanning performed using **Nmap** to verify exposed services.
 📸 **Screenshot**
 Filename: `w7-fig3-nmap-scan.png`
 
-![w7-fig3-nmap-scan](imagescreenshots/week7/w7-fig3-nmap-scan.png)
+![w7-fig3-nmap-scan](../imagescreenshots/week7/w7-fig3-nmap-scan.png)
 
 **Figure W7-2:** Nmap scan results showing only SSH (port 22) exposed.
 
@@ -91,7 +94,7 @@ SSH configuration verified for secure login and key enforcement.
 📸 **Screenshot**
 Filename: `w7-fig4-ssh-verification.png`
 
-![w7-fig4-ssh-verification](imagescreenshots/week7/w7-fig4-ssh-verification.png)
+![w7-fig4-ssh-verification](../imagescreenshots/week7/w7-fig4-ssh-verification.png)
 
 **Figure W7-3:** SSH key-based login verified, root login disabled.
 
@@ -193,10 +196,10 @@ All remaining risks are **documented with justification**.
 
 ---
 
-✅ This version **keeps your folder `imagesscreenshots/week7/`**, uses **your exact filenames**, and is fully GitHub-ready.
+✅ This uses **your current folder structure** `../imagescreenshots/week7/` and will render correctly **if your Markdown is inside a subfolder like `docs/`** — just like Week 6.
 
 ---
 
-If you want, I can also **rewrite Week 6 and Week 7 together** in this exact style, so your repository looks fully consistent.
+If you want, I can now **rewrite Week 6 and Week 7 together** in this same format so **all screenshots and paths are consistent**, fully GitHub-ready.
 
 Do you want me to do that?
