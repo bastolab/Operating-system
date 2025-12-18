@@ -1,4 +1,6 @@
+Got it! I’ll create a **final GitHub-ready Markdown report** and include your **exact screenshot filenames** (`w7-fig1-lynis-audit.png`, `w7-fig3-nmap-scan.png`, `w7-fig4-ssh-verification.png`) so everything matches your uploaded files. Here’s the polished version:
 
+---
 
 # Week 7 — Security Audit & System Evaluation
 
@@ -64,7 +66,6 @@ Key findings extracted using:
 grep -E "hardening_index|warning|suggestion" /var/log/lynis.log
 ```
 
-
 ---
 
 ### Lynis Results Summary
@@ -82,9 +83,9 @@ grep -E "hardening_index|warning|suggestion" /var/log/lynis.log
 * Automatic security updates active
 * MAC enforcement (AppArmor)
 
-**Figure W7-2: Lynis hardening score after remediation**
+**Figure W7-1: Lynis hardening score after remediation**
 
-
+![w7-fig1-lynis-audit](images/screenshots/week7/w7-fig1-lynis-audit.png)
 
 Audit logs stored in:
 
@@ -102,8 +103,9 @@ data/audit/
 nmap -sV -Pn 192.168.56.10
 ```
 
-**Figure W7-3: Nmap service scan from trusted workstation**
+**Figure W7-2: Nmap service scan from trusted workstation**
 
+![w7-fig3-nmap-scan](images/screenshots/week7/w7-fig3-nmap-scan.png)
 
 ### Findings
 
@@ -126,11 +128,9 @@ Confirmed via configuration review and login testing:
 * Key-based authentication enforced
 * Access restricted to approved admin users
 
-**Figure W7-4: SSH login using key-based authentication**
+**Figure W7-3: SSH login using key-based authentication**
 
-```md
-
-```
+![w7-fig4-ssh-verification](images/screenshots/week7/w7-fig4-ssh-verification.png)
 
 ---
 
@@ -144,11 +144,7 @@ ssh user@server "sudo -l"
 * Least-privilege sudo configuration
 * No passwordless sudo unless justified
 
-**Figure W7-5: sudo privilege verification**
-
-```md
-
-```
+**Figure W7-4: sudo privilege verification**
 
 ---
 
@@ -228,7 +224,7 @@ All remaining risks are **documented with justification**.
 ## Final Reflection
 
 This project demonstrates a **complete secure Linux system lifecycle**:
-planning → implementation → testing → optimisation → audit.
+planning → implementation → testing → optimisation → audit
 
 Security improvements were validated quantitatively while maintaining acceptable performance and usability. The final system reflects **real-world production best practices**.
 
@@ -243,8 +239,18 @@ Security improvements were validated quantitatively while maintaining acceptable
 3. Firewall & fail2ban verification
 4. AppArmor enforcement
 5. Lynis & Nmap key findings
-6. security-baseline.sh & monitoring scripts
+6. `security-baseline.sh` & monitoring scripts
 7. Lessons learned & trade-offs
+
+---
+
+## Key Screenshots
+
+| Screenshot Filename          | Description                             |
+| ---------------------------- | --------------------------------------- |
+| w7-fig1-lynis-audit.png      | Lynis hardening score after remediation |
+| w7-fig3-nmap-scan.png        | Nmap scan of exposed services           |
+| w7-fig4-ssh-verification.png | SSH key-based login verification        |
 
 ---
 
@@ -252,6 +258,18 @@ Security improvements were validated quantitatively while maintaining acceptable
 
 ← **[Week 6](week6.md)** | **Week 7 (Final)**
 
+---
 
+This version is **ready for GitHub**. Make sure your images are stored in:
 
+```
+images/screenshots/week7/
+```
 
+so they render correctly in the Markdown file.
+
+---
+
+If you want, I can also **create a compact `README.md`** for your full repository that links all weeks, including this final report with thumbnails of your screenshots for easier navigation.
+
+Do you want me to do that too?
