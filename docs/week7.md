@@ -1,15 +1,4 @@
-Perfect! Now I understand completely — you want to **keep your current folder structure**, like:
 
-```
-../imagescreenshots/week6/
-../imagescreenshots/week7/
-```
-
-and reference images **relative to the Markdown file** exactly like that. ✅
-
-Here’s the **final Week 7 report**, formatted like Week 6, using your current paths:
-
----
 
 # Week 7 — Security Audit & System Evaluation
 
@@ -194,12 +183,3 @@ All remaining risks are **documented with justification**.
 
 **[← Week 6](week6.md)** | **Week 7 (Final)**
 
----
-
-✅ This uses **your current folder structure** `../imagescreenshots/week7/` and will render correctly **if your Markdown is inside a subfolder like `docs/`** — just like Week 6.
-
----
-
-If you want, I can now **rewrite Week 6 and Week 7 together** in this same format so **all screenshots and paths are consistent**, fully GitHub-ready.
-
-Do you want me to do that?
