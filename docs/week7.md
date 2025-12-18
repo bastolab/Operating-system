@@ -1,4 +1,10 @@
-Got it! I’ll create a **final GitHub-ready Markdown report** and include your **exact screenshot filenames** (`w7-fig1-lynis-audit.png`, `w7-fig3-nmap-scan.png`, `w7-fig4-ssh-verification.png`) so everything matches your uploaded files. Here’s the polished version:
+Perfect! I’ll create a **final GitHub-ready Markdown report** using the correct folder structure:
+
+```
+images/screenshots/week7/
+```
+
+and your exact image filenames. You can copy-paste this directly, and it will display properly on GitHub.
 
 ---
 
@@ -260,16 +266,16 @@ Security improvements were validated quantitatively while maintaining acceptable
 
 ---
 
-This version is **ready for GitHub**. Make sure your images are stored in:
+✅ Now your Markdown is **ready for GitHub**, with the **correct folder structure**:
 
 ```
 images/screenshots/week7/
 ```
 
-so they render correctly in the Markdown file.
+and **exact filenames**, so all images will render properly.
 
 ---
 
-If you want, I can also **create a compact `README.md`** for your full repository that links all weeks, including this final report with thumbnails of your screenshots for easier navigation.
+If you want, I can also **create a full GitHub README.md** linking all weeks and reports with clickable thumbnails for the images. This makes your repository look professional.
 
-Do you want me to do that too?
+Do you want me to do that next?
