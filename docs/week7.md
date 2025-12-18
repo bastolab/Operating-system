@@ -47,7 +47,7 @@ Security audit performed using **Lynis** to assess system hardening and complian
 📸 **Screenshot**
 Filename: `w7-fig1-lynis-audit.png`
 
-![w7-fig1-lynis-audit](imagesscreenshots/week7/w7-fig1-lynis-audit.png)
+![w7-fig1-lynis-audit](imagescreenshots/week7/w7-fig1-lynis-audit.png)
 
 **Figure W7-1:** Lynis hardening score after remediation.
 
@@ -68,7 +68,7 @@ Network scanning performed using **Nmap** to verify exposed services.
 📸 **Screenshot**
 Filename: `w7-fig3-nmap-scan.png`
 
-![w7-fig3-nmap-scan](imagesscreenshots/week7/w7-fig3-nmap-scan.png)
+![w7-fig3-nmap-scan](imagescreenshots/week7/w7-fig3-nmap-scan.png)
 
 **Figure W7-2:** Nmap scan results showing only SSH (port 22) exposed.
 
@@ -87,7 +87,7 @@ SSH configuration verified for secure login and key enforcement.
 📸 **Screenshot**
 Filename: `w7-fig4-ssh-verification.png`
 
-![w7-fig4-ssh-verification](imagesscreenshots/week7/w7-fig4-ssh-verification.png)
+![w7-fig4-ssh-verification](imagescreenshots/week7/w7-fig4-ssh-verification.png)
 
 **Figure W7-3:** SSH key-based login verified, root login disabled.
 
